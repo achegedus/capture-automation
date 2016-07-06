@@ -4,11 +4,8 @@ namespace App\App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Client extends Model
+class BillingType extends Model
 {
     //
-    protected $table = 'clients';
-
-
-
+    protected $table = 'billingTypes';
 }
