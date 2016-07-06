@@ -8,4 +8,6 @@ class SystemData extends Model
 {
     //
     protected $table = 'systemData';
+    public $timestamps = false;
+
 }

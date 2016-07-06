@@ -8,4 +8,6 @@ class BillingFee extends Model
 {
     //
     protected $table = 'billingFees';
+    public $timestamps = false;
+
 }

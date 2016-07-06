@@ -8,4 +8,6 @@ class PartnerFile extends Model
 {
     //
     protected $table = 'partnerFiles';
+    public $timestamps = false;
+
 }

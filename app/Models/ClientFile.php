@@ -8,4 +8,6 @@ class ClientFile extends Model
 {
     //
     protected $table = 'clientFiles';
+    public $timestamps = false;
+
 }

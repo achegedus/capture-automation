@@ -8,4 +8,6 @@ class KickoutFile extends Model
 {
     //
     protected $table = 'kickoutFiles';
+    public $timestamps = false;
+
 }
