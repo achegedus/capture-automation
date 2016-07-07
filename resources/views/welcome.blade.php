@@ -38,7 +38,12 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">Laravel 5</div>
+                <p>{{ $client->clientName }}</p>
+                <ul>
+                @foreach ($client->clientFiles as $file)
+                    <li>{{ $file->fileName }}</li>
+                @endforeach
+                </ul>
             </div>
         </div>
     </body>
