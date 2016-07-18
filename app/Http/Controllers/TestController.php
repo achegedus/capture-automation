@@ -23,7 +23,7 @@ class TestController extends Controller
 
         $client = Client::find($clientID);
         if ($client) {
-            $data = ['client' => $client, 'transactions' => $client->transaction_data()];
+            $data = ['client' => $client, 'transactions' => $client->transaction_data(), 'batch' => $client->batch_detail(),'monthly' => $client->monthly_detail(),'ecmapercent' => $client->ECMAPercentage()];
 
             return view('admin.summary', $data);
         }

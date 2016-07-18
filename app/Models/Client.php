@@ -32,7 +32,7 @@ class Client extends Model
 
 
     // ECMA Percentage as of today
-    public function ECMAPercentage() 
+    public function ECMAPercentage()
     {
         $ecmaDays = $this->ECMA_start->diffInDays($this->ECMA_renew);
         $ecmaToDate = $this->ECMA_start->diffInDays(new Carbon());
@@ -40,12 +40,73 @@ class Client extends Model
         return number_format($ecmaToDate / $ecmaDays * 100, 0) . "%";
     }
 
+    public function monthly_detail() {
+      $query = "SELECT Invoicing. *
+        FROM
+        (
+        SELECT #DISTINCT
+             YEAR(pf.processDate) 'year'
+            ,MONTH(pf.processDate) 'month'
+            ,c.clientName 'client'
+            ,bt.billingTypeName 'transactionType'
+            ,SUM(pb.count) 'total'
+            ,bf.fee 'unitCost'
+            ,SUM(pb.count) * bf.fee 'subtotal'
+        FROM partnerBilling pb
+        JOIN partnerFiles pf ON pb.partnerFileID = pf.partnerFileID
+        JOIN clients c ON pf.clientID = c.clientID
+        JOIN clientFiles cf ON pf.clientFileID = cf.clientFileID
+        JOIN billingTypes bt ON pb.billingTypeID = bt.billingTypeID
+        LEFT OUTER JOIN billingFees bf ON pb.billingTypeID = bf.billingTypeID
+        	AND bf.clientID = c.clientID
+        WHERE pb.count <> 0 AND pf.processed = 1
+        	AND ((DATE(pf.processDate) >= DATE(c.ECMA_start) AND DATE(pf.processDate) < (c.ECMA_renew)) or c.ECMA_start is NULL)
+        	AND c.clientID = $this->clientID
+        GROUP BY c.clientName, bt.billingTypeName, bf.fee, YEAR(pf.processDate), MONTH(pf.processDate)
+        ) Invoicing
+        ORDER BY Year desc, Month desc, Client, 'Transaction Type';";
+                $result = DB::select($query);
+
+        return $result;
+    }
+
+    public function batch_detail()
+    {
+
+
+        $query = "SELECT DISTINCT
+              cf.fileName
+              ,pf.batchCode
+          	,cf.uploadTimestamp
+          	,pf.processDate
+              ,bt.billingTypeName 'transactionType'
+              ,pb.count 'total'
+          FROM partnerBilling pb
+          JOIN partnerFiles pf ON pb.partnerFileID = pf.partnerFileID
+          JOIN clients c ON pf.clientID = c.clientID
+          JOIN clientFiles cf ON pf.clientFileID = cf.clientFileID
+          JOIN billingTypes bt ON pb.billingTypeID = bt.billingTypeID
+          LEFT OUTER JOIN billingFees bf ON pb.billingTypeID = bf.billingTypeID
+          	AND bf.clientID = c.clientID
+          WHERE pb.count <> 0 AND pf.processed = 1
+          	AND ((DATE(pf.processDate) >= DATE(c.ECMA_start) AND DATE(pf.processDate) < (c.ECMA_renew)) or c.ECMA_start is NULL)
+              AND c.clientID = $this->clientID
+          ORDER BY processDate DESC;";
+
+        $result = DB::select($query);
+
+
+
+        return $result;
+
+    }
+
 
     public function transaction_data() {
 
         $query = "SELECT clientName
     ,ECMA_renew AS 'renewal_ecmaDate'
-    ,TIMESTAMPDIFF(DAY, NOW(), 
+    ,TIMESTAMPDIFF(DAY, NOW(),
     ECMA_renew) 'days_ecmaRenewal'
     ,proposedVolume_livebills
     ,SUM(CASE WHEN billingTypeName IN ('FTP Image File', 'Mail Redirect', 'Web Download', 'Electronic Transfer', 'EDI') THEN Count ELSE 0 END) AS 'actual_livebills'
