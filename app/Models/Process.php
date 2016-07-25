@@ -9,5 +9,5 @@ class Process extends Model
     //
     protected $table = 'processes';
     public $timestamps = false;
-
+    
 }

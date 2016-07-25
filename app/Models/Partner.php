@@ -11,11 +11,15 @@ class Partner extends Model
     protected $primaryKey = 'partnerID';
     public $timestamps = false;
     // protected $fillable = ['partnerName', 'partnerCode'];
-
-
+    
+    
     // Relationships
-
-    public function partnerFiles() 
+    /**
+     * partner files for this partner
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function partnerFiles()
     {
         return $this->hasMany('App\Models\PartnerFile', 'partnerID', 'partnerID');
     }

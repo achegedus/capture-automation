@@ -10,12 +10,15 @@ class ClientFile extends Model
     protected $table = 'clientFiles';
     protected $primaryKey = 'clientFileID';
     public $timestamps = false;
-
-
+    
+    
     // Relationships
-
-    // Client for this client file
-    public function client() 
+    /**
+     * Client for this client file
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function client()
     {
         return $this->belongsTo('App\Models\Client', 'clientID', 'clientID');
     }

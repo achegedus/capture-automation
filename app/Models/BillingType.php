@@ -9,5 +9,5 @@ class BillingType extends Model
     //
     protected $table = 'billingTypes';
     public $timestamps = false;
-
+    
 }
