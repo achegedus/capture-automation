@@ -54,7 +54,6 @@ class Client extends Model
         return number_format($ecmaToDate / $ecmaDays * 100, 0) . "%";
     }
     
-    
     /**
      *
      *
@@ -99,19 +98,24 @@ class Client extends Model
     public function batch_detail()
     {
         $query = "
-            SELECT DISTINCT cf.fileName, pf.batchCode, cf.uploadTimestamp
-                ,pf.processDate,b t.billingTypeName 'transactionType', pb.count 'total'
-            FROM partnerBilling pb
-            JOIN partnerFiles pf ON pb.partnerFileID = pf.partnerFileID
-            JOIN clients c ON pf.clientID = c.clientID
-            JOIN clientFiles cf ON pf.clientFileID = cf.clientFileID
-            JOIN billingTypes bt ON pb.billingTypeID = bt.billingTypeID
-            LEFT OUTER JOIN billingFees bf ON pb.billingTypeID = bf.billingTypeID AND bf.clientID = c.clientID
-            WHERE pb.count <> 0 AND pf.processed = 1
-            AND ((DATE(pf.processDate) >= DATE(c.ECMA_start) 
-            AND DATE(pf.processDate) < (c.ECMA_renew)) or c.ECMA_start is NULL) 
-            AND c.clientID = $this->clientID
-            ORDER BY processDate DESC;";
+            SELECT DISTINCT
+    cf.fileName
+    ,pf.batchCode
+	,cf.uploadTimestamp
+	,pf.processDate
+    ,bt.billingTypeName 'transactionType'
+    ,pb.count 'total'
+FROM partnerBilling pb
+JOIN partnerFiles pf ON pb.partnerFileID = pf.partnerFileID
+JOIN clients c ON pf.clientID = c.clientID
+JOIN clientFiles cf ON pf.clientFileID = cf.clientFileID
+JOIN billingTypes bt ON pb.billingTypeID = bt.billingTypeID
+#LEFT OUTER JOIN billingFees bf ON pb.billingTypeID = bf.billingTypeID
+	#AND bf.clientID = c.clientID
+WHERE pb.count <> 0 AND pf.processed = 1
+	AND ((DATE(pf.processDate) >= DATE(c.ECMA_start) AND DATE(pf.processDate) < (c.ECMA_renew)) or c.ECMA_start is NULL)
+    AND c.clientID = $this->clientID
+ORDER BY processDate DESC;";
         
         $result = DB::select($query);
         
