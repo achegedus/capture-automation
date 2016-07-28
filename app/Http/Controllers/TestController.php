@@ -9,8 +9,7 @@ use App\Models\Client;
 
 class TestController extends Controller
 {
-    //
-
+    
     public function index() {
         $client = Client::find(20);
         $data = ['client' => $client];
