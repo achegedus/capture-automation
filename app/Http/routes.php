@@ -15,5 +15,17 @@
 //     return view('welcome');
 // });
 
-Route::get('/', 'TestController@index');
-Route::get('/admin/summary/{id}', 'TestController@testSummary');
+Route::group(['middleware' => ['web']], function () {
+    Route::get('/auth0/callback', '\Auth0\Login\Auth0Controller@callback');
+
+    
+    
+    Route::get('/', 'TestController@index');
+    Route::get('/admin/summary/{id}', 'TestController@testSummary');
+    Route::get('/testauth', 'TestController@auth');
+    
+    Route::get('/logout', function () {
+        Auth::logout();
+        return redirect('');
+    });
+});
