@@ -13,7 +13,7 @@
     <div class="row">
         <div class='col-xs-6'>
             <h1>Processing Summary</h1>
-            <table class="table">
+            <table class="table table-striped">
                 <tr>
                     <th></th>
                     <th>Live Transactions</th>
@@ -50,7 +50,7 @@
 
         <div class="col-xs-6">
             <h1>Renewal Detail</h1>
-            <table class="table">
+            <table class="table table-striped">
               <tr>
                 <th> Renewal Date </th>
                 <th> Days until Renewal </th>
@@ -75,7 +75,7 @@
     </div>
 
     <h1>Monthly Detail</h1>
-    <table class="table">
+    <table class="table table-striped">
       <tr>
         <th>
           Year
@@ -130,7 +130,7 @@
     </table>
 
     <h1>Batch Detail</h1>
-    <table class="table">
+    <table class="table table-striped">
       <tr>
         <th>
           Filename
