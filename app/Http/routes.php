@@ -11,12 +11,20 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 
-Route::get('/', 'TestController@index');
-Route::get('/admin/summary/{id}', 'AdminController@summary');
-Route::get('/admin/', 'AdminController@clientList');
-Route::get('/admin/history/{id}', 'AdminController@history');
-Route::get('/admin/settings/{id}', 'AdminController@settings');
+Route::group(['middleware' => ['web']], function () {
+    Route::get('/auth0/callback', '\Auth0\Login\Auth0Controller@callback');
+
+    
+    
+    Route::get('/', 'TestController@index');
+    Route::get('/admin/summary/{id}', 'TestController@testSummary');
+    Route::get('/testauth', 'TestController@auth');
+    Route::get('/admin/', 'AdminController@clientList');
+    
+    
+    Route::get('/logout', function () {
+        Auth::logout();
+        return redirect('');
+    });
+});

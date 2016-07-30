@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Adldap\Exceptions\AdldapException;
+use Adldap\Laravel\Facades\Adldap;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -26,5 +28,26 @@ class TestController extends Controller
 
             return view('admin.summary', $data);
         }
+    }
+    
+    
+    public function auth() {
+    
+//        dd('test');
+        return view('auth0test');
+//
+        
+//        try {
+//            // Authenticating.
+//            if (Adldap::auth()->attempt($username, $password, $bindAsUser = true)) {
+//                // Passed!
+//                echo 'hello';
+//            } else {
+//                echo 'nope';
+//            }
+//        } catch( AdldapException $e)
+//        {
+//            dd($e);
+//        }
     }
 }
