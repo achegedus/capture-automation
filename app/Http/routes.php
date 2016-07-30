@@ -14,11 +14,11 @@
 
 Route::group(['middleware' => ['web']], function () {
     Route::get('/auth0/callback', '\Auth0\Login\Auth0Controller@callback');
-
-    
     
     Route::get('/', 'TestController@index');
-    Route::get('/admin/summary/{id}', 'TestController@testSummary');
+    Route::get('/admin/summary/{id}', 'AdminController@summary');
+    Route::get('/admin/history/{id}', 'AdminController@history');
+    Route::get('/admin/settings/{id}', 'AdminController@settings');
     Route::get('/testauth', 'TestController@auth');
     Route::get('/admin/', 'AdminController@clientList');
     
