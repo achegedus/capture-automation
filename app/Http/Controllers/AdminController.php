@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Models\Client;
+use App\Models\ClientFile;
 
 class AdminController extends Controller
 {
@@ -26,9 +27,30 @@ class AdminController extends Controller
                      'transactions' => $client->transaction_data(), 
                      'batch' => $client->batch_detail(),
                      'monthly' => $client->monthly_detail(),
-                     'ecmapercent' => $client->ECMAPercentage()];
+                     'ecmapercent' => $client->ECMAPercentage()
+                    ]; 
 
             return view('admin.summary', $data);
+        }
+    } 
+    
+    public function history($clientID) {
+        
+        $h = ClientFile::where('clientID','=',$clientID)->orderBy('uploadTimestamp', 'desc')->get();
+        $data = ['data' => $h     
+                ];
+
+        return view('admin.history', $data);
+    }
+    
+    public function settings($clientID) {
+
+        $client = Client::find($clientID);
+        if ($client) {
+            $data = ['data' => $client
+                    ];
+
+            return view('admin.settings', $data);
         }
     }    
     

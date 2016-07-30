@@ -7,6 +7,12 @@
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
+<style>
+    .overage {
+        color: red;
+    }
+</style>
+    
 </head>
 <body class="container">
 
@@ -34,9 +40,21 @@
                 </tr>
                 <tr>
                     <td>Remaining</td>
-                    <td>{{ $transactions[0]->remaining_livebills }}</td>
-                    <td>{{ $transactions[0]->remaining_histbills }}</td>
-                    <td>{{ $transactions[0]->remaining_newAccounts }}</td>
+                    @if ($transactions[0]->remaining_livebills < 0)
+                        <td class="overage">{{ $transactions[0]->remaining_livebills }}</td>                                                                   
+                    @else
+                        <td>{{ $transactions[0]->remaining_livebills }}</td>
+                    @endif                                 
+                    @if ($transactions[0]->remaining_histbills < 0)
+                        <td class="overage">{{ $transactions[0]->remaining_histbills }}</td>                                                                       
+                    @else
+                        <td>{{ $transactions[0]->remaining_histbills }}</td>
+                    @endif
+                    @if ($transactions[0]->remaining_newAccounts < 0)
+                        <td class="overage">{{ $transactions[0]->remaining_newAccounts }}</td>    
+                    @else
+                        <td>{{ $transactions[0]->remaining_newAccounts }}</td>
+                    @endif
                 </tr>
                 <tr>
                     <td>Used</td>
@@ -100,10 +118,7 @@
           @foreach ($monthly as $item)
           <tr>
           <td>
-
             {{ $item->year }}
-
-
           </td>
           <td>
             {{ $item->month }}

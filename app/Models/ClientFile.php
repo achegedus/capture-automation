@@ -22,4 +22,10 @@ class ClientFile extends Model
     {
         return $this->belongsTo('App\Models\Client', 'clientID', 'clientID');
     }
+    
+    public function partnerFile()
+    {
+        return $this->hasOne('App\Models\PartnerFile', 'clientFileID', 'clientFileID');
+    }
+    
 }

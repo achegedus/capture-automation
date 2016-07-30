@@ -18,3 +18,5 @@
 Route::get('/', 'TestController@index');
 Route::get('/admin/summary/{id}', 'AdminController@summary');
 Route::get('/admin/', 'AdminController@clientList');
+Route::get('/admin/history/{id}', 'AdminController@history');
+Route::get('/admin/settings/{id}', 'AdminController@settings');
