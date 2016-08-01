@@ -22,7 +22,7 @@ Route::group(['middleware' => ['web']], function () {
 
 
     # Client UI Routes
-    Route::get('/', 'TestController@index');
+    Route::get('/', 'ClientController@index');
 
 
     # Admin UI Routes
