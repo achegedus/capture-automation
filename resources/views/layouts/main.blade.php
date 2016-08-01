@@ -100,7 +100,12 @@
 <nav class="navbar navbar-inverse navbar-fixed-top navbar2" role="navigation">
     <div class="container">
         <div>
-            <p class="navbar-text navbar-right"></p>
+            @if (Auth::check())
+                <p class="navbar-text">{{ Auth::user()->name }}</p>
+            @endif
+            @if (Auth::check() && Auth::user()->isECBCAdmin())
+                <a href="/admin" class="navbar-text navbar-right">Admin Access</a>
+            @endif
         </div>
     </div>
 </nav>
