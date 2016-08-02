@@ -55,6 +55,10 @@
             margin-top: 20px;
         }
 
+        #root {
+            padding-top: 30px;
+        }
+
         .jumbotronButton {
             background-color: #388BD5;
             border: none;
