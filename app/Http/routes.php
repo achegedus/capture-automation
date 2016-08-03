@@ -19,11 +19,10 @@ Route::group(['middleware' => ['web']], function () {
         Auth::logout();
         return redirect('');
     });
-
-
+    
     # Client UI Routes
     Route::get('/', 'ClientController@index');
-
+    Route::get('/stats', 'ClientController@stats');
 
     # Admin UI Routes
     Route::group(['namespace' => 'Admin'], function () {

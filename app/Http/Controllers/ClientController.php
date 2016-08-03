@@ -42,4 +42,22 @@ class ClientController extends Controller
         }
     }
 
+    
+    public function stats()
+    {
+        $client = Client::where('username', '=', Auth::user()->bill_capture_client)->first();
+    
+        if ($client) {
+            $data = ['client'       => $client,
+                     'transactions' => $client->transaction_data(),
+                     'batch'        => $client->batch_detail(),
+                     'monthly'      => $client->monthly_detail(),
+                     'ecmapercent'  => $client->ECMAPercentage()
+            ];
+        
+            return view('stats', $data);
+        } else {
+            redirect('/logout');
+        }
+    }
 }

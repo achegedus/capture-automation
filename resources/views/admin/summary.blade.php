@@ -23,26 +23,38 @@
             <tr>
                 <td>Remaining</td>
                 @if ($transactions[0]->remaining_livebills < 0)
-                    <td class="overage">{{ $transactions[0]->remaining_livebills }}</td>
+                    <td class="redtext">{{ $transactions[0]->remaining_livebills }}</td>
                 @else
                     <td>{{ $transactions[0]->remaining_livebills }}</td>
                 @endif
                 @if ($transactions[0]->remaining_histbills < 0)
-                    <td class="overage">{{ $transactions[0]->remaining_histbills }}</td>
+                    <td class="redtext">{{ $transactions[0]->remaining_histbills }}</td>
                 @else
                     <td>{{ $transactions[0]->remaining_histbills }}</td>
                 @endif
                 @if ($transactions[0]->remaining_newAccounts < 0)
-                    <td class="overage">{{ $transactions[0]->remaining_newAccounts }}</td>
+                    <td class="redtext">{{ $transactions[0]->remaining_newAccounts }}</td>
                 @else
                     <td>{{ $transactions[0]->remaining_newAccounts }}</td>
                 @endif
             </tr>
             <tr>
                 <td>Used</td>
-                <td>{{ $transactions[0]->percentage_livebills * 100 }}%</td>
-                <td>{{ $transactions[0]->percentage_histbills * 100 }}%</td>
-                <td>{{ $transactions[0]->percentage_newAccounts * 100 }}%</td>
+                @if (($transactions[0]->percentage_livebills * 100) > 100)
+                    <td class="redtext">{{ $transactions[0]->percentage_livebills * 100 }}%</td>
+                @else
+                    <td>{{ $transactions[0]->percentage_livebills * 100 }}%</td>
+                @endif
+                @if (($transactions[0]->percentage_histbills * 100) > 100)
+                    <td class="redtext">{{ $transactions[0]->percentage_histbills * 100 }}%</td>
+                @else
+                    <td>{{ $transactions[0]->percentage_histbills * 100 }}%</td>
+                @endif
+                @if (($transactions[0]->percentage_newAccounts * 100) > 100)
+                    <td class="redtext">{{ $transactions[0]->percentage_newAccounts * 100 }}%</td>
+                @else
+                    <td>{{ $transactions[0]->percentage_newAccounts * 100 }}%</td>
+                @endif
             </tr>
         </table>
     </div>
@@ -51,24 +63,31 @@
         <h2>Renewal Detail</h2>
         <table class="table table-striped">
             <tr>
-                <th> Renewal Date</th>
-                <th> Days until Renewal</th>
-                <th> % into Period</th>
+                <th>Renewal Date</th>
+                <th>Days until Renewal</th>
+                <th>% into Period</th>
             </tr>
-            <tr>
-                <td> {{ $client->ECMA_renew->toDateString() }}</td>
-                <td>
-                    {{ $transactions[0]->days_ecmaRenewal }}
-                </td>
-                <td>
-                    {{ $ecmapercent }}
-                </td>
-            </tr>
+            @if ($transactions[0]->days_ecmaRenewal < 0)
+                <tr>
+                    <td class="redtext">{{ $client->ECMA_renew->toDateString() }}</td>
+                    <td class="redtext">{{ $transactions[0]->days_ecmaRenewal }}</td>
+                    <td class="redtext">{{ $ecmapercent }}</td>
+                </tr>
+            @else
+                <tr>
+                    <td>{{ $client->ECMA_renew->toDateString() }}</td>
+                    <td>{{ $transactions[0]->days_ecmaRenewal }}</td>
+                    <td>{{ $ecmapercent }}</td>
+                </tr> class=redtext
+            @endif
         </table>
     </div>
 </div>
 
+
 <h2>Monthly Detail</h2>
+<i class="icon-question-sign" data-toggle="tooltip" title="Each batch processed in the current renewal period"><span class="glyphicon glyphicon-question-sign"></i>
+
 <table class="table table-striped">
     <tr>
         <th>Year</th>
@@ -81,27 +100,16 @@
 
     @foreach ($monthly as $item)
         <tr>
-            <td>
-                {{ $item->year }}
-            </td>
-            <td>
-                {{ $item->month }}
-            </td>
-            <td>
-                {{ $item->transactionType }}
-            </td>
-            <td>
-                {{ $item->total }}
-            </td>
-            <td>
-                {{ $item->unitCost }}
-            </td>
-            <td>
-                {{ $item->subtotal }}
-            </td>
+            <td>{{ $item->year }}</td>
+            <td>{{ $item->month }}</td>
+            <td>{{ $item->transactionType }}</td>
+            <td>{{ $item->total }}</td>
+            <td>{{ $item->unitCost }}</td>
+            <td>{{ $item->subtotal }}</td>
         </tr>
     @endforeach
 </table>
+
 
 <h2>Batch Detail</h2>
 <table class="table table-striped">
@@ -116,24 +124,12 @@
 
     @foreach ($batch as $item)
         <tr>
-            <td>
-                {{ $item->fileName }}
-            </td>
-            <td>
-                {{ $item->batchCode }}
-            </td>
-            <td>
-                {{ $item->uploadTimestamp }}
-            </td>
-            <td>
-                {{ $item->processDate }}
-            </td>
-            <td>
-                {{ $item->transactionType }}
-            </td>
-            <td>
-                {{ $item->total }}
-            </td>
+            <td>{{ $item->fileName }}</td>
+            <td>{{ $item->batchCode }}</td>
+            <td>{{ $item->uploadTimestamp }}</td>
+            <td>{{ $item->processDate }}</td>
+            <td>{{ $item->transactionType }}</td>
+            <td>{{ $item->total }}</td>
         </tr>
     @endforeach
 </table>
