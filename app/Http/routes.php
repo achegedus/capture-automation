@@ -10,7 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-
+use Illuminate\Support\Facades\Input as Input;
 Route::group(['middleware' => ['web']], function () {
 
     # Authentication Routes
@@ -34,7 +34,28 @@ Route::group(['middleware' => ['web']], function () {
     });
 
     Route::get('/upload', 'UploadController@client_upload');
-    Route::post('/process_upload', 'UploadController@upload_process');
+    Route::get('/list_upload', 'UploadController@list_upload');
+    ///Route::post('/process_upload', 'UploadController@upload_process');
+
+    Route::post('/process_upload', function(){
+
+      if (Request::ajax()) {
+        $file = Input::file('file');
+        $destinationPath = public_path() . '/uploads/';
+        $filename = $file->getClientOriginalName();
+        $fileexists = file_exists($filename);
+        if (!$fileexists){
+          echo $fileexists;
+          $upload_success = Input::file('file')->move($destinationPath, $filename);
+          return Response::json('sucesss', 200);
+        }
+        else {
+          echo 'else';
+          return Response::json('error', 400);
+        }
+      }
+
+    });
 
 
 });

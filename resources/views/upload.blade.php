@@ -7,6 +7,7 @@
     <meta charset=="utf-8">
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/dropzone/4.2.0/min/dropzone.min.js"></script>  <!-- js for the add files area /-->
+    <script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
     <!-- <script>
     var Dropzone = require("enyo-dropzone");
     Dropzone.autoDiscover = false;
@@ -56,15 +57,26 @@
         #previews .file-row .delete {
         display: none;
         }
+        #previews .file-row .start {
+        display: none;
+        }
+        /*#previews .file-row .cancel {
+        display: none;
+        }*/
+        #previews .file-row .progress {
+        display: none;
+        }
 
         /* Hide the start and cancel buttons and show the delete button */
 
-        /*#previews .file-row.dz-success .start,*/
-        /*#previews .file-row.dz-success .cancel {*/
-        /*display: none;*/
-        /*}*/
-        /*#previews .file-row.dz-success .delete {*/
-        /*display: block;*/
+        #previews .file-row.dz-success .start {
+          display: none;
+        }
+        #previews .file-row.dz-success .cancel {
+        display: none;
+        }
+        #previews .file-row.dz-success .delete {
+        display: none;
         }
 
 
@@ -72,7 +84,7 @@
 
 </head>
 <body>
-<form action="/process_upload" method=POST>
+
 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 <div class="container" id="container">
 
@@ -83,7 +95,7 @@
             <!-- The fileinput-button span is used to style the file input field as button -->
         <span class="btn btn-success fileinput-button">
             <i class="glyphicon glyphicon-plus"></i>
-            <span>Add files...</span>
+            <span>Add Zip files...</span>
         </span>
             <button type="submit" class="btn btn-primary start">
                 <i class="glyphicon glyphicon-upload"></i>
@@ -158,7 +170,7 @@
         previewNode.parentNode.removeChild(previewNode);
 
         var myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
-          url: "/upload/do_upload", // Set the url
+          url: "/process_upload", // Set the url
           thumbnailWidth: 80,
           thumbnailHeight: 80,
           parallelUploads: 20,
@@ -182,12 +194,13 @@
           // Show the total progress bar when upload starts
           document.querySelector("#total-progress").style.opacity = "1";
           // And disable the start button
-          file.previewElement.querySelector(".start").setAttribute("disabled", "disabled");
+          file.previewElement.querySelector(".start").setAttribute("disabled", "enabled");
         });
 
         // Hide the total progress bar when nothing's uploading anymore
         myDropzone.on("queuecomplete", function(progress) {
           document.querySelector("#total-progress").style.opacity = "0";
+          location.reload();
         });
 
         // Setup the buttons for all transfers
@@ -200,11 +213,24 @@
           myDropzone.removeAllFiles(true);
         };
 
+            // $.getJSON('/list_upload', function(data) {
+            //   $.each(data, function(key,value){
+            //     var mockFile = { name: value.name, size: value.size, date: value.date };
+            //     myDropzone.options.addedfile.call(myDropzone, mockFile);
+            //
+            //
+            //
+            //     });
+            //
+            //   });
+
+
+
     </script>  <!-- js for the add files area /-->
 
 
 
 </div>
-</form>
+
 </body>
 </html>
