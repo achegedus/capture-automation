@@ -5,9 +5,9 @@
 <html>
 <head>
     <meta charset=="utf-8">
-    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/dropzone/4.2.0/min/dropzone.min.js"></script>  <!-- js for the add files area /-->
-    <script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
     <!-- <script>
     var Dropzone = require("enyo-dropzone");
     Dropzone.autoDiscover = false;
@@ -229,9 +229,10 @@
     </script>  <!-- js for the add files area /-->
 
 
+
 </div>
+<div class=container id=container>
 <div class="row">
-  <div class="col-xs-6">
     <h2> Bill Upload History </h2>
     <table class="table table-striped">
       <tr>
@@ -243,16 +244,25 @@
           <th>Status</th>
       </tr>
 
-
+          @foreach ($data as $item)
           <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+              <td>{{ $item->fileName }}</td>
+              <td>{{ $item->uploadTimestamp }}</td>
+              <td>{{ $item->partnerFile->batchCode }}</td>
+              <td>{{ $item->partnerFile->processDate }}</td>
+              <td>@if ($item->isFileProcessed == 1 && $item->partnerFile->closed == 1)
+                      Processed
+                  @elseif ($item->partnerFile->kickedOut == 1 && $item->partnerFile->closed == 0)
+                      Kicked Out
+                  @elseif ($item->partnerFile->processed == 1 && $item->partnerFile->closed == 0)
+                      Partial
+                  @else
+                      In Queue
+                  @endif
+              </td>
 
           </tr>
-
+          @endforeach
 
 
     </table>
