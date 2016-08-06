@@ -6,12 +6,19 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Input as Input;
+use App\Models\ClientFile;
 
 class UploadController extends Controller
 {
-    public function client_upload(){
-      return view('upload');
+    public function client_upload($clientID){
+      $history = ClientFile::find($clientID);
+      //$clientfile = ClientFile::where('clientID','=',$clientID)->orderBy('uploadTimestamp', 'desc')->get();
+      $data = ['clientFiles' => $history];
+
+
+      return view('upload',$data);
     }
+
     /*
     ** Function to list files in the current upload directory **
     */

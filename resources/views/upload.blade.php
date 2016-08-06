@@ -229,8 +229,37 @@
     </script>  <!-- js for the add files area /-->
 
 
-
 </div>
+<div class="row">
+  <div class="col-xs-6">
+    <h2> Bill Upload History </h2>
+    <table class="table table-striped">
+      <tr>
+
+          <th>Filename</th>
+          <th>Upload Date</th>
+          <th>Batch Code</th>
+          <th>Last Activity</th>
+          <th>Status</th>
+      </tr>
+
+
+          <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+
+          </tr>
+
+
+
+    </table>
+  </div>
+</div>
+
+
 
 </body>
 </html>

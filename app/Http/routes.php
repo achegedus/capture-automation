@@ -19,7 +19,7 @@ Route::group(['middleware' => ['web']], function () {
         Auth::logout();
         return redirect('');
     });
-    
+
     # Client UI Routes
     Route::get('/', 'ClientController@index');
     Route::get('/stats', 'ClientController@stats');
@@ -32,7 +32,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('/admin/settings/{id}', 'AdminController@settings');
     });
 
-    Route::get('/upload', 'UploadController@client_upload');
+    Route::get('/upload/{id}', 'UploadController@client_upload');
     Route::get('/list_upload', 'UploadController@list_upload');
     ///Route::post('/process_upload', 'UploadController@upload_process');
 
