@@ -6,7 +6,7 @@
 <head>
     <meta charset=="utf-8">
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/dropzone/4.2.0/min/dropzone.min.js"></script>  <!-- js for the add files area /-->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/dropzone.js"></script>  <!-- js for the add files area /-->
     <script src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
     <!-- <script>
     var Dropzone = require("enyo-dropzone");
@@ -91,7 +91,8 @@
 
     <div id="actions" class="row">
 
-        <div class="col-lg-7">
+        <div class="col-lg-8">
+          <h2> EnergyCAP Bill CAPture </h2>
             <!-- The fileinput-button span is used to style the file input field as button -->
         <span class="btn btn-success fileinput-button">
             <i class="glyphicon glyphicon-plus"></i>
@@ -174,6 +175,8 @@
           thumbnailWidth: 80,
           thumbnailHeight: 80,
           parallelUploads: 20,
+          maxFilesize: 2048, // MB
+          acceptedFiles: ".zip",
           previewTemplate: previewTemplate,
           autoQueue: false, // Make sure the files aren't queued until manually added
           previewsContainer: "#previews", // Define the container to display the previews
@@ -182,6 +185,8 @@
 
         myDropzone.on("addedfile", function(file) {
         //  Hookup the start button
+          check_duplicate(file);
+          //alert(file.name);
           file.previewElement.querySelector(".start").onclick = function() { myDropzone.enqueueFile(file); };
         });
 
@@ -224,6 +229,37 @@
             //
             //   });
 
+            function check_duplicate(file){
+
+              $.ajax({
+                //The URL to process the request
+
+
+                'url' : '/check_duplicates/'+file.name,
+                //The type of request, also known as the "method" in HTML forms
+                //Can be 'GET' or 'POST'
+                  'type' : 'GET',
+                //Any post-data/get-data parameters
+                //This is optional
+                  'data' : {
+
+
+                  },
+                //The response from the server
+                  'success' : function(data) {
+                  //You can use any jQuery/JavaScript here!!!
+                    if (data != "false") {
+                      alert(file.name + " " + data);
+                      //return removeFile(file);
+                      var _ref;
+                      return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
+
+                    }
+                  }
+                });
+
+           }
+
 
 
     </script>  <!-- js for the add files area /-->
@@ -232,8 +268,8 @@
 
 </div>
 <div class=container id=container>
-<div class="row">
-    <h2> Bill Upload History </h2>
+    <div class="col-lg-12">
+    <h2>Bill Upload History</h2>
     <table class="table table-striped">
       <tr>
 
@@ -268,6 +304,8 @@
     </table>
   </div>
 </div>
+
+
 
 
 

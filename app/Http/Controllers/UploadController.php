@@ -19,5 +19,23 @@ class UploadController extends Controller
       return view('upload', $data);
     }
 
+    public function check_duplicates($files){
+
+          $data['file']=$files;
+
+          $uploadFolder = public_path() . '/uploads/';
+
+          if (file_exists($uploadFolder.$files)){
+            $result= "already exists";
+          }
+
+          else {
+            $result = "false";
+          }
+          return $result;
+    }
+
+
+
 
 }

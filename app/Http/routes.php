@@ -34,6 +34,7 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::get('/upload/{id}', 'UploadController@client_upload');
     Route::get('/list_upload', 'UploadController@list_upload');
+    Route::get('/check_duplicates/{file}', 'UploadController@check_duplicates');
     ///Route::post('/process_upload', 'UploadController@upload_process');
 
     Route::post('/process_upload', function(){
@@ -43,6 +44,8 @@ Route::group(['middleware' => ['web']], function () {
         $destinationPath = public_path() . '/uploads/';
         $filename = $file->getClientOriginalName();
         $fileexists = file_exists($filename);
+        $filesize = sizeof($filename);
+
         if (!$fileexists){
           echo $fileexists;
           $upload_success = Input::file('file')->move($destinationPath, $filename);
