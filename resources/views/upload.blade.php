@@ -116,8 +116,28 @@
           </div>
         </span>
         </div>
-
+        <br>
+        <div class="col-lg-10">
+        <div class="radio">
+        <label>
+          <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+          Option one is this and that&mdash;be sure to include why it's great
+        </label>
+      </div>
+      <div class="radio">
+        <label>
+          <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+          Option two can be something else and selecting it will deselect option one
+        </label>
+      </div>
+      <div class="radio disabled">
+        <label>
+          <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3" disabled>
+          Option three is disabled
+        </label>
+      </div>
     </div>
+  </div>
 
 
 
@@ -126,7 +146,9 @@
 
 
 
-    <div class="table table-striped files" id="previews">
+
+
+    <div class="table table-striped files col-lg-10" id="previews">
 
         <div id="template" class="file-row">
 
@@ -144,7 +166,8 @@
                 <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
                     <div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress></div>
                 </div>
-            </div>
+
+
             <div>
                 <button class="btn btn-primary start">
                     <i class="glyphicon glyphicon-upload"></i>
@@ -162,6 +185,7 @@
         </div>
 
     </div>
+  </div>
 
     <script>
                 // Get the template HTML and remove it from the doumenthe template HTML and remove it from the doument
@@ -266,9 +290,9 @@
 
 
 
-</div>
+
 <div class=container id=container>
-    <div class="col-lg-12">
+
     <h2>Bill Upload History</h2>
     <table class="table table-striped">
       <tr>
