@@ -41,13 +41,14 @@ Route::group(['middleware' => ['web']], function () {
 
       if (Request::ajax()) {
         $file = Input::file('file');
+        $optselected = Input::get('options');
         $destinationPath = public_path() . '/uploads/';
         $filename = $file->getClientOriginalName();
         $fileexists = file_exists($filename);
-        $filesize = sizeof($filename);
+
 
         if (!$fileexists){
-          echo $fileexists;
+          
           $upload_success = Input::file('file')->move($destinationPath, $filename);
           return Response::json('sucesss', 200);
         }
