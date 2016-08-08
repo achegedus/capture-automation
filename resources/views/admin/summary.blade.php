@@ -91,23 +91,21 @@
         <h2>Renewal Detail</h2>
         <table class="table table-striped">
             <tr>
-                <th>Renewal Date</th>
-                <th>Days until Renewal</th>
-                <th>% into Period</th>
+                <th> Renewal Date</th>
+                <th> Days until Renewal</th>
+                <th> % into Period</th>
             </tr>
-            @if ($transactions->days_ecmaRenewal < 0)
-                <tr>
-                    <td class="redtext">{{ $client->ECMA_renew->toDateString() }}</td>
-                    <td class="redtext">{{ $transactions->days_ecmaRenewal }}</td>
-                    <td class="redtext">{{ $ecmapercent }}</td>
-                </tr>
-            @else
-                <tr>
-                    <td>{{ $client->ECMA_renew->toDateString() }}</td>
-                    <td>{{ $transactions->days_ecmaRenewal }}</td>
-                    <td>{{ $ecmapercent }}</td>
-                </tr>
-            @endif
+            <tr>
+                @if ($transactions[0]->days_ecmaRenewal < 0)
+                    <td class="overage"> {{ $client->ECMA_renew->toDateString() }}</td>
+                    <td class="overage"> {{ $transactions[0]->days_ecmaRenewal }} </td>
+                    <td class="overage"> {{ $ecmapercent }} </td>
+                @else
+                    <td> {{ $client->ECMA_renew->toDateString() }} </td>
+                    <td> {{ $transactions[0]->days_ecmaRenewal }} </td>
+                    <td> {{ $ecmapercent }} </td>                    
+                @endif
+            </tr>
         </table>
         @endif
     </div>

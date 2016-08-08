@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Models\Client;
 use App\Models\ClientFile;
+use App\Models\CatalogService;
 
 class AdminController extends Controller
 {
@@ -44,14 +45,34 @@ class AdminController extends Controller
     }
     
     public function settings($clientID)
-    {
+    {   
         $client = Client::find($clientID);
+        $catalogData = CatalogService::pluck('catalogServiceName', 'catalogServiceID');
+        
         if ($client) {
-            $data = ['data' => $client];
+            $data = ['client' => $client,
+                     'catalogData' => $catalogData
+                    ];
             
             return view('admin.settings', $data);
         }
     }
+    
+    public function formSubmit(Request $request, $clientID) {
+        $client = Client::find($clientID);
+        $client->clientName = $request->clientName;
+        $client->username = $request->username;
+        $client->clientEmail = $request->clientEmail;
+        $client->catalogServiceID = $request->catalogServiceID;
+        $client->datasource = $request->datasource;
+//        $client->ECMA_start = $request->ECMA_start;
+//        $client->ECMA_renew = $request->ECMA_renew;
+        $client->invoiceSchedule = $request->invoiceSchedule;
+        $client->SLA = $request->SLA;
+        $client->save();
+    }
+    
+
     
     
 }

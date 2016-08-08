@@ -40,6 +40,10 @@ class Client extends Model
         return $this->hasMany('App\Models\PartnerFile', 'clientID', 'clientID');
     }
     
+    public function catalogServices()
+    {
+        return $this->hasOne('App\Models\CatalogService', 'catalogServiceID', 'catalogServiceID');
+    }    
     
     /**
      * ECMA Percentage as of today
