@@ -48,6 +48,9 @@ class Client extends Model
      */
     public function ECMAPercentage()
     {
+        if (!$this->ECMA_start || !$this->ECMA_renew)
+            return 0;
+        
         $ecmaDays = $this->ECMA_start->diffInDays($this->ECMA_renew);
         $ecmaToDate = $this->ECMA_start->diffInDays(new Carbon());
         
@@ -129,33 +132,40 @@ ORDER BY processDate DESC;";
     public function transaction_data()
     {
         $query = "
-            SELECT clientName
-                ,ECMA_renew AS 'renewal_ecmaDate'
-                ,TIMESTAMPDIFF(DAY, NOW(),
-                ECMA_renew) 'days_ecmaRenewal'
-                ,proposedVolume_livebills
-                ,SUM(CASE WHEN billingTypeName IN ('FTP Image File', 'Mail Redirect', 'Web Download', 'Electronic Transfer', 'EDI') THEN Count ELSE 0 END) AS 'actual_livebills'
-                ,SUM(CASE WHEN billingTypeName IN ('FTP Image File', 'Mail Redirect', 'Web Download', 'Electronic Transfer', 'EDI') THEN Count ELSE 0 END) / proposedVolume_livebills AS 'percentage_livebills'
-                ,proposedVolume_livebills - SUM(CASE WHEN billingTypeName IN ('FTP Image File', 'Mail Redirect', 'Web Download', 'Electronic Transfer', 'EDI') THEN Count ELSE 0 END) 'remaining_livebills'
-                ,proposedVolume_histbills
-                ,SUM(CASE WHEN billingTypeName IN ('FTP Image File - History', 'Web Download - History', 'Mail Redirect - History', 'Electronic Transfer - History') THEN Count ELSE 0 END) AS 'actual_histbills'
-                ,SUM(CASE WHEN billingTypeName IN ('FTP Image File - History', 'Web Download - History', 'Mail Redirect - History', 'Electronic Transfer - History') THEN Count ELSE 0 END) / proposedVolume_histbills 'percentage_histbills'
-                ,proposedVolume_histbills - SUM(CASE WHEN billingTypeName IN ('FTP Image File - History', 'Web Download - History', 'Mail Redirect - History', 'Electronic Transfer - History') THEN Count ELSE 0 END) 'remaining_histbills'
-                ,proposedVolume_accts
-                ,SUM(CASE WHEN billingTypeName IN ('New Accounts') THEN Count ELSE 0 END) AS 'actual_newAccounts'
-                ,SUM(CASE WHEN billingTypeName IN ('New Accounts') THEN Count ELSE 0 END) / proposedVolume_accts 'percentage_newAccounts'
-                ,proposedVolume_accts - SUM(CASE WHEN billingTypeName IN ('New Accounts') THEN Count ELSE 0 END) 'remaining_newAccounts'
+            SELECT clientName,
+                ECMA_start,
+                clientEmail,
+                usage_alert_percent,
+                ECMA_renew AS 'renewal_ecmaDate',
+                TIMESTAMPDIFF(DAY, NOW(),
+                ECMA_renew) 'days_ecmaRenewal',
+                proposedVolume_livebills,
+                TIMESTAMPDIFF(DAY, NOW(), ECMA_renew) 'days_ecmaRenewal',
+                SUM(CASE WHEN billingTypeName IN ('FTP Image File', 'Mail Redirect', 'Web Download', 'Electronic Transfer', 'EDI') THEN Count ELSE 0 END) AS 'actual_livebills',
+                SUM(CASE WHEN billingTypeName IN ('FTP Image File', 'Mail Redirect', 'Web Download', 'Electronic Transfer', 'EDI') THEN Count ELSE 0 END) / proposedVolume_livebills AS 'percentage_livebills',
+                proposedVolume_livebills - SUM(CASE WHEN billingTypeName IN ('FTP Image File', 'Mail Redirect', 'Web Download', 'Electronic Transfer', 'EDI') THEN Count ELSE 0 END) 'remaining_livebills',
+                proposedVolume_histbills,
+                SUM(CASE WHEN billingTypeName IN ('FTP Image File - History', 'Web Download - History', 'Mail Redirect - History', 'Electronic Transfer - History') THEN Count ELSE 0 END) AS 'actual_histbills',
+                SUM(CASE WHEN billingTypeName IN ('FTP Image File - History', 'Web Download - History', 'Mail Redirect - History', 'Electronic Transfer - History') THEN Count ELSE 0 END) / proposedVolume_histbills 'percentage_histbills',
+                proposedVolume_histbills - SUM(CASE WHEN billingTypeName IN ('FTP Image File - History', 'Web Download - History', 'Mail Redirect - History', 'Electronic Transfer - History') THEN Count ELSE 0 END) 'remaining_histbills',
+                proposedVolume_accts,
+                SUM(CASE WHEN billingTypeName IN ('New Accounts') THEN Count ELSE 0 END) AS 'actual_newAccounts',
+                SUM(CASE WHEN billingTypeName IN ('New Accounts') THEN Count ELSE 0 END) / proposedVolume_accts 'percentage_newAccounts',
+                proposedVolume_accts - SUM(CASE WHEN billingTypeName IN ('New Accounts') THEN Count ELSE 0 END) 'remaining_newAccounts'
             FROM
             (
             SELECT DISTINCT
-                 c.clientName
-                ,c.ECMA_start
-                ,c.ECMA_renew
-                ,c.proposedVolume_accts
-                ,c.proposedVolume_livebills
-                ,c.proposedVolume_histbills
-                ,bt.billingTypeName
-                ,SUM(pb.count) 'Count'
+                c.clientName,
+                c.usage_alert_percent,
+                c.clientEmail,
+                c.transactions_alert,
+                c.ECMA_start,
+                c.ECMA_renew,
+                c.proposedVolume_accts,
+                c.proposedVolume_livebills,
+                c.proposedVolume_histbills,
+                bt.billingTypeName,
+                SUM(pb.count) 'Count'
             FROM clients c
             LEFT OUTER JOIN partnerFiles pf ON c.clientID = pf.clientID
                 AND (DATE(pf.processDate) >= DATE(c.ECMA_start) AND DATE(pf.processDate) < (c.ECMA_renew))
@@ -173,7 +183,10 @@ ORDER BY processDate DESC;";
             ORDER BY clientName, billingTypeName;";
         $result = DB::select($query);
         
-        return $result;
+        if (count($result) == 0)
+            return false;
+        
+        return $result[0];
     }
     
     

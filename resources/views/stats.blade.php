@@ -14,50 +14,50 @@
                 </tr>
                 <tr>
                     <td>Contracted</td>
-                    <td>{{ $transactions[0]->proposedVolume_livebills }}</td>
-                    <td>{{ $transactions[0]->proposedVolume_histbills }}</td>
-                    <td>{{ $transactions[0]->proposedVolume_accts }}</td>
+                    <td>{{ $transactions->proposedVolume_livebills }}</td>
+                    <td>{{ $transactions->proposedVolume_histbills }}</td>
+                    <td>{{ $transactions->proposedVolume_accts }}</td>
                 </tr>
                 <tr>
                     <td>Actual</td>
-                    <td>{{ $transactions[0]->actual_livebills }}</td>
-                    <td>{{ $transactions[0]->actual_histbills }}</td>
-                    <td>{{ $transactions[0]->actual_newAccounts }}</td>
+                    <td>{{ $transactions->actual_livebills }}</td>
+                    <td>{{ $transactions->actual_histbills }}</td>
+                    <td>{{ $transactions->actual_newAccounts }}</td>
                 </tr>
                 <tr>
                     <td>Remaining</td>
-                    @if ($transactions[0]->remaining_livebills < 0)
-                        <td class="redtext">{{ $transactions[0]->remaining_livebills }}</td>
+                    @if ($transactions->remaining_livebills < 0)
+                        <td class="redtext">{{ $transactions->remaining_livebills }}</td>
                     @else
-                        <td>{{ $transactions[0]->remaining_livebills }}</td>
+                        <td>{{ $transactions->remaining_livebills }}</td>
                     @endif
-                    @if ($transactions[0]->remaining_histbills < 0)
-                        <td class="redtext">{{ $transactions[0]->remaining_histbills }}</td>
+                    @if ($transactions->remaining_histbills < 0)
+                        <td class="redtext">{{ $transactions->remaining_histbills }}</td>
                     @else
-                        <td>{{ $transactions[0]->remaining_histbills }}</td>
+                        <td>{{ $transactions->remaining_histbills }}</td>
                     @endif
-                    @if ($transactions[0]->remaining_newAccounts < 0)
-                        <td class="redtext">{{ $transactions[0]->remaining_newAccounts }}</td>
+                    @if ($transactions->remaining_newAccounts < 0)
+                        <td class="redtext">{{ $transactions->remaining_newAccounts }}</td>
                     @else
-                        <td>{{ $transactions[0]->remaining_newAccounts }}</td>
+                        <td>{{ $transactions->remaining_newAccounts }}</td>
                     @endif
                 </tr>
                 <tr>
                     <td>Used</td>
-                    @if (($transactions[0]->percentage_livebills * 100) > 100)
-                        <td class="redtext">{{ $transactions[0]->percentage_livebills * 100 }}%</td>
+                    @if (($transactions->percentage_livebills * 100) > 100)
+                        <td class="redtext">{{ $transactions->percentage_livebills * 100 }}%</td>
                     @else
-                        <td>{{ $transactions[0]->percentage_livebills * 100 }}%</td>
+                        <td>{{ $transactions->percentage_livebills * 100 }}%</td>
                     @endif
-                    @if (($transactions[0]->percentage_histbills * 100) > 100)
-                        <td class="redtext">{{ $transactions[0]->percentage_histbills * 100 }}%</td>
+                    @if (($transactions->percentage_histbills * 100) > 100)
+                        <td class="redtext">{{ $transactions->percentage_histbills * 100 }}%</td>
                     @else
-                        <td>{{ $transactions[0]->percentage_histbills * 100 }}%</td>
+                        <td>{{ $transactions->percentage_histbills * 100 }}%</td>
                     @endif
-                    @if (($transactions[0]->percentage_newAccounts * 100) > 100)
-                        <td class="redtext">{{ $transactions[0]->percentage_newAccounts * 100 }}%</td>
+                    @if (($transactions->percentage_newAccounts * 100) > 100)
+                        <td class="redtext">{{ $transactions->percentage_newAccounts * 100 }}%</td>
                     @else
-                        <td>{{ $transactions[0]->percentage_newAccounts * 100 }}%</td>
+                        <td>{{ $transactions->percentage_newAccounts * 100 }}%</td>
                     @endif
                 </tr>
             </table>
@@ -71,16 +71,16 @@
                     <th> Days until Renewal</th>
                     <th> % into Period</th>
                 </tr>
-                @if ($transactions[0]->days_ecmaRenewal < 0)
+                @if ($transactions->days_ecmaRenewal < 0)
                     <tr>
                         <td class="redtext">{{ $client->ECMA_renew->toDateString() }}</td>
-                        <td class="redtext">{{ $transactions[0]->days_ecmaRenewal }}</td>
+                        <td class="redtext">{{ $transactions->days_ecmaRenewal }}</td>
                         <td class="redtext">{{ $ecmapercent }}</td>
                     </tr>
                 @else
                     <tr>
                         <td>{{ $client->ECMA_renew->toDateString() }}</td>
-                        <td>{{ $transactions[0]->days_ecmaRenewal }}</td>
+                        <td>{{ $transactions->days_ecmaRenewal }}</td>
                         <td>{{ $ecmapercent }}</td>
                     </tr> class=redtext
                 @endif
