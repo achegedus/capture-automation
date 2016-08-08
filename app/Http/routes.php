@@ -31,10 +31,13 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('/admin/summary/{id}', 'AdminController@summary');
         Route::get('/admin/history/{id}', 'AdminController@history');
         Route::get('/admin/settings/{id}', 'AdminController@settings');
+        Route::post('/admin/submit/{id}', 'AdminController@formSubmit');
     });
 
     Route::get('/upload', 'UploadController@client_upload');
     Route::post('/process_upload', 'UploadController@upload_process');
+    
+    
 
 
 });

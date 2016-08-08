@@ -43,7 +43,7 @@
 
 <h2>Bill Upload History</h2>
 <table id="uploadHist">
-    <thead>
+    <thead class="thead-inverse">
         <tr>
             <th>Filename</th>
             <th>Upload Date</th>

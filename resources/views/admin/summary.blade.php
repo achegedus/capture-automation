@@ -56,13 +56,15 @@
                 <th> % into Period</th>
             </tr>
             <tr>
-                <td> {{ $client->ECMA_renew->toDateString() }}</td>
-                <td>
-                    {{ $transactions[0]->days_ecmaRenewal }}
-                </td>
-                <td>
-                    {{ $ecmapercent }}
-                </td>
+                @if ($transactions[0]->days_ecmaRenewal < 0)
+                    <td class="overage"> {{ $client->ECMA_renew->toDateString() }}</td>
+                    <td class="overage"> {{ $transactions[0]->days_ecmaRenewal }} </td>
+                    <td class="overage"> {{ $ecmapercent }} </td>
+                @else
+                    <td> {{ $client->ECMA_renew->toDateString() }} </td>
+                    <td> {{ $transactions[0]->days_ecmaRenewal }} </td>
+                    <td> {{ $ecmapercent }} </td>                    
+                @endif
             </tr>
         </table>
     </div>
@@ -81,24 +83,12 @@
 
     @foreach ($monthly as $item)
         <tr>
-            <td>
-                {{ $item->year }}
-            </td>
-            <td>
-                {{ $item->month }}
-            </td>
-            <td>
-                {{ $item->transactionType }}
-            </td>
-            <td>
-                {{ $item->total }}
-            </td>
-            <td>
-                {{ $item->unitCost }}
-            </td>
-            <td>
-                {{ $item->subtotal }}
-            </td>
+            <td> {{ $item->year }} </td>
+            <td> {{ $item->month }} </td>
+            <td> {{ $item->transactionType }} </td>
+            <td> {{ $item->total }} </td>
+            <td> {{ $item->unitCost }} </td>
+            <td> {{ $item->subtotal }} </td>
         </tr>
     @endforeach
 </table>
@@ -116,24 +106,12 @@
 
     @foreach ($batch as $item)
         <tr>
-            <td>
-                {{ $item->fileName }}
-            </td>
-            <td>
-                {{ $item->batchCode }}
-            </td>
-            <td>
-                {{ $item->uploadTimestamp }}
-            </td>
-            <td>
-                {{ $item->processDate }}
-            </td>
-            <td>
-                {{ $item->transactionType }}
-            </td>
-            <td>
-                {{ $item->total }}
-            </td>
+            <td> {{ $item->fileName }} </td>
+            <td> {{ $item->batchCode }} </td>
+            <td> {{ $item->uploadTimestamp }} </td>
+            <td> {{ $item->processDate }} </td>
+            <td> {{ $item->transactionType }} </td>
+            <td> {{ $item->total }} </td>
         </tr>
     @endforeach
 </table>
