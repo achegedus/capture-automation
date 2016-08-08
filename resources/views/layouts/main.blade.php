@@ -1,30 +1,78 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>EnergyCAP Bill CAPture @yield('title')</title>
+    <title>EnergyCAP Bill CAPture</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.3/css/bootstrap.min.css" integrity="sha384-MIwDKRSSImVFAZCVLtU0LMDdON6KVCrZHyVQQj6e8wIEJkW4tvwqXrbMIya1vriY" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.26.6/css/theme.bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="/css/chosen.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"         crossorigin="anonymous">
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="/js/chosen.jquery.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.26.6/js/jquery.tablesorter.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.26.6/js/jquery.tablesorter.widgets.js"></script>
+
+    <link rel="stylesheet" href="{{ elixir('css/app.css') }}">
+
+    @yield('script')
 </head>
+
 <body>
 
-    @section('header')
-        Master Header
-    @show
-
-
+<nav class="navbar navbar-default navbar-fixed-top navbar1" role="navigation">
     <div class="container">
-        @yield('content')
+        <a target="_blank" class="navbar-brand" href="http://www.energycap.com">
+            <img alt="Brand" src="http://cdn2.hubspot.net/hub/313940/file-318329326-png/logo_(1).png?t=1414524075044">
+        </a>
     </div>
+</nav>
+<nav class="navbar navbar-inverse navbar-fixed-top navbar2" role="navigation">
+    <div class="container">
+        <div class="">
+            @if (Auth::check())
+                <p class="navbar-text">{{ Auth::user()->name }}</p>
+                <div class="navbar-right">
+                    <a href="/" class="navbar-text ">Home</a>
+                    <a href="/stats" class="navbar-text ">Stats</a>
+                    <a href="/settings" class="navbar-text ">Settings</a>
+                    <a href="http://billcapture.energycap.com/docs" class="navbar-text ">Help</a>
+                    <a href="/logout" class="navbar-text ">Logout</a>
+
+                    @if (Auth::check() && Auth::user()->isECBCAdmin())
+                        <a href="/admin" class="navbar-text ">Admin Access</a>
+                    @endif
+                </div>
+
+            @endif
+
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    @yield('content')
+</div>
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js" integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.3/js/bootstrap.min.js" integrity="sha384-ux8v3A6CPtOTqOzMKiuo3d/DomGaaClxFYdCu2HPMBEkf6x2xiDyJ7gkXU0MWwaD" crossorigin="anonymous"></script>
+<nav class="navbar navbar-inverse navbar-fixed-bottom bottomBar" role="navigation">
+    <div class="container">
+        <div style="float: left">
+            <p class="navbar-text navbar-right footerTextWhite">©2016 <span class="footerTextGreen">EnergyCAP, Inc.</span></p>
+        </div>
+        <div align="center" style="float: right; padding-top: 11px;" class="energycap-social">
+            <table>
+                <tbody>
+                <tr>
+                    <td><a href="https://www.facebook.com/EnergyCAP"><img src="http://info.energycap.com/hs-fs/hubfs/images/socialMedia/facebook24.png?t=1434479471493&amp;width=24" width="24" alt=""          style="margin: 0px 6px 0px 0px;"></a></td>
+                    <td><a href="https://twitter.com/#!/energycap"><img src="http://info.energycap.com/hs-fs/hubfs/images/socialMedia/twitter24.png?t=1434479471493&amp;width=24" width="24" alt="" style="margin: 0px 6px 0px 0px;"></a></td>
+                    <td><a href="http://www.slideshare.net/EnergyCAP"><img src="http://info.energycap.com/hs-fs/hubfs/images/socialMedia/slideshare24.png?t=1434479471493&amp;width=24" width="24" alt=""></a>      </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</nav>
 
 </body>
 </html>

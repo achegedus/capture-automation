@@ -93,6 +93,8 @@
         }
     </style>
 
+    <link rel="stylesheet" href="{{ elixir('css/app.css') }}">
+
     @yield('script')
 </head>
 

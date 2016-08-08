@@ -16,7 +16,7 @@ class ClientController extends Controller
     public function index()
     {
         if (Auth::check()) {
-            
+
             if (Auth::user()->bill_capture_client != '') {
                 $client = Client::where('username', '=', Auth::user()->bill_capture_client)->first();
                 $data = ['client' => $client];
@@ -24,10 +24,10 @@ class ClientController extends Controller
                 return view('welcome', $data);
             } else {
                 // not a bill capture user
-                echo "test";
+                redirect('/logout');
             }
         } else {
-            return view('welcome');
+            return view('login');
         }
     }
     
@@ -42,4 +42,22 @@ class ClientController extends Controller
         }
     }
 
+    
+    public function stats()
+    {
+        $client = Client::where('username', '=', Auth::user()->bill_capture_client)->first();
+    
+        if ($client) {
+            $data = ['client'       => $client,
+                     'transactions' => $client->transaction_data(),
+                     'batch'        => $client->batch_detail(),
+                     'monthly'      => $client->monthly_detail(),
+                     'ecmapercent'  => $client->ECMAPercentage()
+            ];
+        
+            return view('stats', $data);
+        } else {
+            redirect('/logout');
+        }
+    }
 }
