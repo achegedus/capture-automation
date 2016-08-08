@@ -34,8 +34,31 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('/admin/submit/{id}', 'AdminController@formSubmit');
     });
 
-    Route::get('/upload', 'UploadController@client_upload');
-    Route::post('/process_upload', 'UploadController@upload_process');
+    Route::get('/upload/{id}', 'UploadController@client_upload');
+    Route::get('/list_upload', 'UploadController@list_upload');
+    Route::get('/check_duplicates/{file}', 'UploadController@check_duplicates');
+    Route::post('/process_upload', function(){
+
+      if (Request::ajax()) {
+        $file = Input::file('file');
+        $optselected = Input::get('options');
+        $destinationPath = public_path() . '/uploads/';
+        $filename = $file->getClientOriginalName();
+        $fileexists = file_exists($filename);
+
+
+        if (!$fileexists){
+          
+          $upload_success = Input::file('file')->move($destinationPath, $filename);
+          return Response::json('sucesss', 200);
+        }
+        else {
+          echo 'else';
+          return Response::json('error', 400);
+        }
+      }
+
+    });    
     
     
 
