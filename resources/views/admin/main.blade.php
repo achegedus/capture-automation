@@ -82,8 +82,8 @@
         <h3 class="title">Bill CAPture Admin</h3>
         <div class="row">
             <div class="col-md-7">
-                <select id="clientList">
-                    <option value="">Select a client to view stats</option>
+                <select data-placeholder="Select a client to view stats..." id="clientList" class="chosen-select">
+                    <option></option>
                     @foreach ($clientList as $client)
                         <option value="{{ $client->clientID }}">{{ $client->clientName }}</option>
                     @endforeach

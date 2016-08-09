@@ -1,3 +1,7 @@
+<?php
+use Carbon\Carbon;
+?>
+
 <script>
     
     $(function() {
@@ -92,7 +96,7 @@ $encoded_email = json_encode($converted_email);
                 <div class="form-group">
                     {!! Form::label('ECMA_start', 'ECMA Start:') !!}
                     <div class="input-group date">
-                        {!! Form::text('ECMA_start', $client->ECMA_start, ['class' => 'form-control datepick']) !!}
+                        {!! Form::text('ECMA_start', Carbon::parse($client->ECMA_start)->toDateString(), ['class' => 'form-control datepick']) !!}
                         <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                     </div>
                 </div>                      
@@ -101,7 +105,7 @@ $encoded_email = json_encode($converted_email);
                 <div class="form-group">
                     {!! Form::label('ECMA_renew', 'ECMA Renewal:') !!}
                     <div class="input-group date">
-                        {!! Form::text('ECMA_renew', $client->ECMA_renew, ['class' => 'form-control datepick']) !!}
+                        {!! Form::text('ECMA_renew', Carbon::parse($client->ECMA_renew)->toDateString(), ['class' => 'form-control datepick']) !!}
                         <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                     </div>
                 </div>                      

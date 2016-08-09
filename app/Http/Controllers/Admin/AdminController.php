@@ -84,14 +84,19 @@ class AdminController extends Controller
      */
     public function formSubmit(Request $request, $clientID)
     {
+        // decode JSON from form post
+        $decode = json_decode($request->clientEmail);
+        // make string comma separated
+        $converted = implode(',', $decode);        
+        
         $client = Client::find($clientID);
         $client->clientName = $request->clientName;
         $client->username = $request->username;
-        $client->clientEmail = $request->clientEmail;
+        $client->clientEmail = $converted;
         $client->catalogServiceID = $request->catalogServiceID;
         $client->datasource = $request->datasource;
-//        $client->ECMA_start = $request->ECMA_start;
-//        $client->ECMA_renew = $request->ECMA_renew;
+        $client->ECMA_start = $request->ECMA_start;
+        $client->ECMA_renew = $request->ECMA_renew;
         $client->invoiceSchedule = $request->invoiceSchedule;
         $client->SLA = $request->SLA;
         $client->save();
