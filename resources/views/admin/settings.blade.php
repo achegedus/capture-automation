@@ -1,8 +1,20 @@
 <?php
 use Carbon\Carbon;
 ?>
+<head>
+    <style>
+        .option {
+            font-weight: normal;
+        }
+        
+        .panel-body .form-group {
+            margin-bottom: 7px;
+        }
+        
+    </style>
+</head>
 
-<script>
+<script>    
     
     $(function() {
         $("#alert").hide();  
@@ -126,8 +138,71 @@ $encoded_email = json_encode($converted_email);
                 </div>
             </div>
         </div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Options</h3>
+			</div>
+            <div class="panel-body">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        {!! Form::checkbox('multi_owner', '1', true, ['id' => 'multi_owner']) !!}
+                        {!! Form::label('multi_owner', 'Multi-owner Database', ['class' => 'option']) !!}
+                    </div>
+                    <div class="form-group">
+                        OwnerID
+                        {!! Form::text('ownerID', $client->ownerID, ['class' => 'form-control']) !!}                         
+                    </div>
+                    <div class="form-group">
+                        {!! Form::checkbox('hosted', '1', true, ['id' => 'hosted']) !!}
+                        {!! Form::label('hosted', 'Hosted by EnergyCAP', ['class' => 'option']) !!}
+                    </div>
+                    <div class="form-group">
+                        {!! Form::checkbox('hold', '1', true, ['id' => 'hold']) !!}
+                        {!! Form::label('hold', 'Processing Hold', ['class' => 'option']) !!}                        
+                    </div>
+                    <div class="form-group">
+                        {!! Form::checkbox('override', '1', true, ['id' => 'override']) !!}
+                        {!! Form::label('override', 'Batch Override', ['class' => 'option']) !!}                        
+                    </div>
+                    <div class="form-group">
+                        {!! Form::checkbox('prefixes', '1', true, ['id' => 'prefixes']) !!}
+                        {!! Form::label('prefixes', 'Change Batch Prefixes', ['class' => 'option']) !!}                        
+                    </div>
+                    <div class="form-group">
+                        {!! Form::checkbox('feeOptions', '1', true, ['id' => 'feeOptions']) !!}
+                        {!! Form::label('feeOptions', 'Change Fee Options', ['class' => 'option']) !!}                        
+                    </div>                    
+                </div>
+                <div class="col-md-6">
+                   <div class="form-group">
+                       Kickout Grace Period
+                        <div class="input-group">
+                            {!! Form::number('gracePeriod', $client->kickoutGracePeriod, ['class' => 'form-control']) !!}
+                            <span class="input-group-addon">Days</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {!! Form::checkbox('accountPeriod', '1', true, ['id' => 'accountPeriod']) !!}
+                        {!! Form::label('accountPeriod', 'Set Account Period', ['class' => 'option']) !!}                        
+                    </div>
+                    <div class="form-group">
+                        {!! Form::checkbox('transAlert', '1', true, ['id' => 'transAlert']) !!}
+                        {!! Form::label('transAlert', 'Transactions Alert', ['class' => 'option']) !!}                        
+                    </div>
+                    <div class="form-group">
+                        Usage Percentage
+                        {!! Form::number('usagePercent', $client->usage_alert_percent, ['class' => 'form-control']) !!}                        
+                    </div>
+                    <div class="form-group">
+                        {!! Form::checkbox('transVolume', '1', true, ['id' => 'transVolume']) !!}
+                        {!! Form::label('transVolume', 'Change Transaction Volumes', ['class' => 'option']) !!}                        
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
 <div class="row">
     <div class="col-md-2">
         <span id="submitButton" type="button" class="btn btn-primary form-control">Save Settings</span>
