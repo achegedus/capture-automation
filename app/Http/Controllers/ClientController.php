@@ -13,10 +13,13 @@ use Illuminate\Support\Facades\Auth;
 class ClientController extends Controller
 {
     
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
         if (Auth::check()) {
-
+            
             if (Auth::user()->bill_capture_client != '') {
                 $client = Client::where('username', '=', Auth::user()->bill_capture_client)->first();
                 $data = ['client' => $client];
@@ -32,6 +35,10 @@ class ClientController extends Controller
     }
     
     
+    /**
+     * @param $clientID
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function testSummary($clientID)
     {
         $client = Client::find($clientID);
@@ -41,12 +48,15 @@ class ClientController extends Controller
             return view('admin.summary', $data);
         }
     }
-
     
+    
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function stats()
     {
         $client = Client::where('username', '=', Auth::user()->bill_capture_client)->first();
-    
+        
         if ($client) {
             $data = ['client'       => $client,
                      'transactions' => $client->transaction_data(),
@@ -54,7 +64,7 @@ class ClientController extends Controller
                      'monthly'      => $client->monthly_detail(),
                      'ecmapercent'  => $client->ECMAPercentage()
             ];
-        
+            
             return view('stats', $data);
         } else {
             redirect('/logout');

@@ -43,7 +43,7 @@ class Client extends Model
     public function catalogServices()
     {
         return $this->hasOne('App\Models\CatalogService', 'catalogServiceID', 'catalogServiceID');
-    }    
+    }
     
     /**
      * ECMA Percentage as of today

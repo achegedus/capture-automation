@@ -13,6 +13,9 @@ use App\Models\CatalogService;
 class AdminController extends Controller
 {
     
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function clientList()
     {
         $clientList = Client::orderBy('clientName')->get();
@@ -21,6 +24,11 @@ class AdminController extends Controller
         return view('admin.main', $data);
     }
     
+    
+    /**
+     * @param $clientID
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function summary($clientID)
     {
         $client = Client::find($clientID);
@@ -36,6 +44,11 @@ class AdminController extends Controller
         }
     }
     
+    
+    /**
+     * @param $clientID
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function history($clientID)
     {
         $h = ClientFile::where('clientID', '=', $clientID)->orderBy('uploadTimestamp', 'desc')->get();
@@ -44,21 +57,32 @@ class AdminController extends Controller
         return view('admin.history', $data);
     }
     
+    
+    /**
+     * @param $clientID
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function settings($clientID)
-    {   
+    {
         $client = Client::find($clientID);
         $catalogData = CatalogService::pluck('catalogServiceName', 'catalogServiceID');
         
         if ($client) {
-            $data = ['client' => $client,
+            $data = ['client'      => $client,
                      'catalogData' => $catalogData
-                    ];
+            ];
             
             return view('admin.settings', $data);
         }
     }
     
-    public function formSubmit(Request $request, $clientID) {
+    
+    /**
+     * @param Request $request
+     * @param $clientID
+     */
+    public function formSubmit(Request $request, $clientID)
+    {
         $client = Client::find($clientID);
         $client->clientName = $request->clientName;
         $client->username = $request->username;
@@ -71,8 +95,6 @@ class AdminController extends Controller
         $client->SLA = $request->SLA;
         $client->save();
     }
-    
-
     
     
 }

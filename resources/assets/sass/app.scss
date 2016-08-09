@@ -80,3 +80,72 @@ body {
 .redtext {
   color: red;
 }
+
+
+#actions {
+  margin: 2em 0;
+}
+
+/* Mimic table appearance */
+div.table {
+  display: table;
+
+  .file-row {
+    display: table-row;
+
+    > div {
+      display: table-cell;
+      vertical-align: top;
+      border-top: 1px solid #ddd;
+      padding: 8px;
+    }
+  }
+
+  .file-row:nth-child(odd) {
+    background: #f9f9f9;
+  }
+}
+
+/* The total progress gets shown by event listeners */
+#total-progress {
+  opacity: 0;
+  transition: opacity 0.3s linear;
+}
+
+#previews {
+  .file-row {
+
+    .delete {
+      display: none;
+    }
+
+    .start {
+      display: none;
+    }
+
+    .progress {
+      display: none;
+    }
+
+  }
+
+  /* Hide the start and cancel buttons and show the delete button */
+  .file-row.dz-success {
+    .progress {
+      opacity: 0;
+      transition: opacity 0.3s linear;
+    }
+    .start {
+      display: none;
+    }
+
+    .cancel {
+      display: none;
+    }
+
+    .delete {
+      display: none;
+    }
+  }
+
+}

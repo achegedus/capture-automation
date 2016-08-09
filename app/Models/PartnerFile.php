@@ -43,5 +43,5 @@ class PartnerFile extends Model
     public function clientFile()
     {
         return $this->belongsTo('App\Models\ClientFile', 'clientFileID', 'clientFileID');
-    }    
+    }
 }
