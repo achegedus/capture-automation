@@ -15,19 +15,6 @@ use App\Models\ClientFile;
 class UploadController extends Controller
 {
     
-    /**
-     * @param $clientID
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function client_upload()
-    {
-        $client = Client::where('username', '=', Auth::user()->bill_capture_client)->first();
-        
-        $history = $client->ClientFiles()->orderBy('uploadTimestamp', 'desc')->get();
-        
-        return view('upload', ['history' => $history]);
-    }
-    
     
     /**
      * @param $files

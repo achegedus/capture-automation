@@ -26,7 +26,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/', 'ClientController@index');
     Route::get('/stats', 'ClientController@stats');
     
-    Route::get('/upload', 'UploadController@client_upload');
+    Route::get('/upload', 'ClientController@index');
     Route::get('/list_upload', 'UploadController@list_upload');
     Route::get('/check_duplicates/{file}', 'UploadController@check_duplicates');
     Route::post('/process_upload', 'UploadController@process_upload');
