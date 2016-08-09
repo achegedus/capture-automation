@@ -24,7 +24,7 @@
 
     <script src="https://cdn.auth0.com/js/lock/10.0/lock.min.js"></script>
     <script type="text/javascript">
-        var lock = new Auth0Lock('ZPNBmSe2cPHErqO7Wx6aZkqo3eLwOwZT', 'energycap.auth0.com', {
+        var lock = new Auth0Lock('{{ env("AUTH0_CLIENT_ID") }}', '{{ env("AUTH0_DOMAIN") }}', {
             container: 'root',
             rememberLastLogin: false,
             allowForgotPassword: false,
@@ -38,7 +38,7 @@
                 title: "EnergyCAP CAPture Services Login"
             },
             auth: {
-                redirectUrl: 'http://localhost:8000/auth0/callback',
+                redirectUrl: '{{ env ("AUTH0_CALLBACK_URL" )}}',
                 responseType: 'code',
                 params: {
                     scope: 'openid email' // Learn about scopes: https://auth0.com/docs/scopes
