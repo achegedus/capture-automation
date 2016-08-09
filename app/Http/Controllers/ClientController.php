@@ -22,9 +22,10 @@ class ClientController extends Controller
             
             if (Auth::user()->bill_capture_client != '') {
                 $client = Client::where('username', '=', Auth::user()->bill_capture_client)->first();
-                $data = ['client' => $client];
                 
-                return view('welcome', $data);
+                $history = $client->ClientFiles()->orderBy('uploadTimestamp', 'desc')->get();
+    
+                return view('upload', ['history' => $history]);
             } else {
                 // not a bill capture user
                 redirect('/logout');
