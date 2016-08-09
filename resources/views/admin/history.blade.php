@@ -54,22 +54,29 @@
         </tr>
     </thead>
     <tbody>
-    @foreach ($data as $i)
+    @foreach ($history as $i)
         <tr>
             <td>{{ $i->fileName }}</td>
             <td>{{ $i->uploadTimestamp }}</td>
-            <td>{{ $i->partnerFile->batchCode }}</td>
-            <td>{{ $i->partnerFile->processDate }}</td>
-            <td>@if ($i->isFileProcessed == 1 && $i->partnerFile->closed == 1)
-                    Processed
-                @elseif ($i->partnerFile->kickedOut == 1 && $i->partnerFile->closed == 0)
-                    Kicked Out
-                @elseif ($i->partnerFile->processed == 1 && $i->partnerFile->closed == 0)
-                    Partial
-                @else
-                    In Queue
-                @endif
-            </td>
+
+            @if ($i->partnerFile)
+                <td>{{ $i->partnerFile->batchCode }}</td>
+                <td>{{ $i->partnerFile->processDate }}</td>
+                <td>@if ($i->isFileProcessed == 1 && $i->partnerFile->closed == 1)
+                        Processed
+                    @elseif ($i->partnerFile->kickedOut == 1 && $i->partnerFile->closed == 0)
+                        Kicked Out
+                    @elseif ($i->partnerFile->processed == 1 && $i->partnerFile->closed == 0)
+                        Partial
+                    @else
+                        In Queue
+                    @endif
+                </td>
+            @else
+                <td></td>
+                <td></td>
+                <td></td>
+            @endif
         </tr>
     @endforeach
     </tbody>

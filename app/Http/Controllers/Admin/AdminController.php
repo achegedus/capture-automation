@@ -39,7 +39,7 @@ class AdminController extends Controller
                      'monthly'      => $client->monthly_detail(),
                      'ecmapercent'  => $client->ECMAPercentage()
             ];
-            
+
             return view('admin.summary', $data);
         }
     }
@@ -51,10 +51,11 @@ class AdminController extends Controller
      */
     public function history($clientID)
     {
-        $h = ClientFile::where('clientID', '=', $clientID)->orderBy('uploadTimestamp', 'desc')->get();
-        $data = ['data' => $h];
+        $client = Client::find($clientID);
+    
+        $history = $client->ClientFiles()->orderBy('uploadTimestamp', 'desc')->get();
         
-        return view('admin.history', $data);
+        return view('admin.history', ['history' => $history]);
     }
     
     
