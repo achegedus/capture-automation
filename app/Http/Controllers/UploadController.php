@@ -37,27 +37,4 @@ class UploadController extends Controller
     }
     
     
-    public function process_upload()
-    {
-        if (Request::ajax()) {
-            $file = Input::file('file');
-            $optselected = Input::get('options');
-            $destinationPath = public_path() . '/uploads/';
-            $filename = $file->getClientOriginalName();
-            $fileexists = file_exists($filename);
-        
-        
-            if (!$fileexists) {
-            
-                $upload_success = Input::file('file')->move($destinationPath, $filename);
-            
-                return Response::json('sucesss', 200);
-            } else {
-                echo 'else';
-            
-                return Response::json('error', 400);
-            }
-        }
-    }
-    
 }
