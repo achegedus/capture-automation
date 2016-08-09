@@ -1,7 +1,7 @@
 <?php
 
 return array(
-
+    
     /*
     |--------------------------------------------------------------------------
     |   Your auth0 domain
@@ -9,8 +9,8 @@ return array(
     |   As set in the auth0 administration page
     |
     */
-
-     'domain'        => 'energycap.auth0.com',
+    'domain'        => env('AUTH0_DOMAIN'),
+    
     /*
     |--------------------------------------------------------------------------
     |   Your APP id
@@ -18,9 +18,8 @@ return array(
     |   As set in the auth0 administration page
     |
     */
-
-     'client_id'     => 'ZPNBmSe2cPHErqO7Wx6aZkqo3eLwOwZT',
-
+    'client_id'     => env('AUTH0_CLIENT_ID'),
+    
     /*
     |--------------------------------------------------------------------------
     |   Your APP secret
@@ -28,19 +27,17 @@ return array(
     |   As set in the auth0 administration page
     |
     */
-     'client_secret' => 'GQdrCSUCstsI49DaIKKO6fwmK-az8OeDwyhP4SLUrfkiPyt9t70Ld9TX7B8j5Kjt',
-
-
-   /*
-    |--------------------------------------------------------------------------
-    |   The redirect URI
-    |--------------------------------------------------------------------------
-    |   Should be the same that the one configure in the route to handle the
-    |   'Auth0\Login\Auth0Controller@callback'
-    |
-    */
-
-     'redirect_uri'  => 'http://localhost:8000/auth0/callback'
+    'client_secret' => env("AUTH0_CLIENT_SECRET"),
+    
+    /*
+     |--------------------------------------------------------------------------
+     |   The redirect URI
+     |--------------------------------------------------------------------------
+     |   Should be the same that the one configure in the route to handle the
+     |   'Auth0\Login\Auth0Controller@callback'
+     |
+     */
+    'redirect_uri'  => env("AUTH0_CALLBACK_URL"),
 
     /*
     |--------------------------------------------------------------------------
