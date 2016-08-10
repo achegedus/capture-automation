@@ -48,8 +48,6 @@ class TransactionsCheck extends Command
         // Loop through clients
         foreach ($clients as $client) {
             
-            Log::info('----- ' . $client->clientName);
-            
             // get transaction data
             if (!$trans = $client->transaction_data()) {
                 continue;
@@ -71,7 +69,7 @@ class TransactionsCheck extends Command
             
             // On Pace
             // if the proposedVolume column is NULL it will be skipped
-            if ($trans->proposedVolume_livebills) {
+            if ($trans->proposedVolume_livebills >= 0) {
                 
                 $liveTransPercentUsed = $trans->actual_livebills / $trans->proposedVolume_livebills * 100;
                 
@@ -110,7 +108,7 @@ class TransactionsCheck extends Command
             // *************** Historical Bills ************** //
     
             // if the proposedVolume column is NULL it will be skipped
-            if ($trans->proposedVolume_histbills) {
+            if ($trans->proposedVolume_histbills >= 0) {
         
                 // check to see if they used more than 10 transactions over their proposed amount
                 if ($trans->actual_histbills > ($trans->proposedVolume_histbills + 10)) {
@@ -133,7 +131,7 @@ class TransactionsCheck extends Command
             // ******************* Accounts ****************** //
     
             // if the proposedVolume column is NULL it will be skipped
-            if ($trans->proposedVolume_accts) {
+            if ($trans->proposedVolume_accts >= 0) {
         
                 if ($trans->actual_newAccounts > ($trans->proposedVolume_accts + 10)) {
                     $acctOutput = array(); // set the empty array for the view
