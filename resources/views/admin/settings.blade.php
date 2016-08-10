@@ -145,31 +145,31 @@ $encoded_email = json_encode($converted_email);
             <div class="panel-body">
                 <div class="col-md-6">
                     <div class="form-group">
-                        {!! Form::checkbox('multi_owner', '1', true, ['id' => 'multi_owner']) !!}
-                        {!! Form::label('multi_owner', 'Multi-owner Database', ['class' => 'option']) !!}
+                        {!! Form::checkbox('multi_tenant', '1', $client->multi_tenant, ['id' => 'multi_tenant']) !!}
+                        {!! Form::label('multi_tenant', 'Multi-owner Database', ['class' => 'option']) !!}
                     </div>
                     <div class="form-group">
                         OwnerID
                         {!! Form::text('ownerID', $client->ownerID, ['class' => 'form-control']) !!}                         
                     </div>
                     <div class="form-group">
-                        {!! Form::checkbox('hosted', '1', true, ['id' => 'hosted']) !!}
-                        {!! Form::label('hosted', 'Hosted by EnergyCAP', ['class' => 'option']) !!}
+                        {!! Form::checkbox('isHosted', '1', $client->isHosted, ['id' => 'isHosted']) !!}
+                        {!! Form::label('isHosted', 'Hosted by EnergyCAP', ['class' => 'option']) !!}
                     </div>
                     <div class="form-group">
-                        {!! Form::checkbox('hold', '1', true, ['id' => 'hold']) !!}
-                        {!! Form::label('hold', 'Processing Hold', ['class' => 'option']) !!}                        
+                        {!! Form::checkbox('onHold', '1', $client->onHold, ['id' => 'onHold']) !!}
+                        {!! Form::label('onHold', 'Processing Hold', ['class' => 'option']) !!}                        
                     </div>
                     <div class="form-group">
-                        {!! Form::checkbox('override', '1', true, ['id' => 'override']) !!}
-                        {!! Form::label('override', 'Batch Override', ['class' => 'option']) !!}                        
+                        {!! Form::checkbox('batchOverride', '1', $client->batchOverride, ['id' => 'batchOverride']) !!}
+                        {!! Form::label('batchOverride', 'Batch Override', ['class' => 'option']) !!}                        
                     </div>
                     <div class="form-group">
-                        {!! Form::checkbox('prefixes', '1', true, ['id' => 'prefixes']) !!}
+                        {!! Form::checkbox('prefixes', '1', '1', ['id' => 'prefixes']) !!}
                         {!! Form::label('prefixes', 'Change Batch Prefixes', ['class' => 'option']) !!}                        
                     </div>
                     <div class="form-group">
-                        {!! Form::checkbox('feeOptions', '1', true, ['id' => 'feeOptions']) !!}
+                        {!! Form::checkbox('feeOptions', '1', '1', ['id' => 'feeOptions']) !!}
                         {!! Form::label('feeOptions', 'Change Fee Options', ['class' => 'option']) !!}                        
                     </div>                    
                 </div>
@@ -182,11 +182,11 @@ $encoded_email = json_encode($converted_email);
                         </div>
                     </div>
                     <div class="form-group">
-                        {!! Form::checkbox('accountPeriod', '1', true, ['id' => 'accountPeriod']) !!}
-                        {!! Form::label('accountPeriod', 'Set Account Period', ['class' => 'option']) !!}                        
+                        {!! Form::checkbox('setAccountPeriod', '1', $client->setAccountPeriod, ['id' => 'setAccountPeriod']) !!}
+                        {!! Form::label('setAccountPeriod', 'Set Account Period', ['class' => 'option']) !!}                        
                     </div>
                     <div class="form-group">
-                        {!! Form::checkbox('transAlert', '1', true, ['id' => 'transAlert']) !!}
+                        {!! Form::checkbox('transAlert', '1', $client->transactions_alert, ['id' => 'transAlert']) !!}
                         {!! Form::label('transAlert', 'Transactions Alert', ['class' => 'option']) !!}                        
                     </div>
                     <div class="form-group">
@@ -194,7 +194,7 @@ $encoded_email = json_encode($converted_email);
                         {!! Form::number('usagePercent', $client->usage_alert_percent, ['class' => 'form-control']) !!}                        
                     </div>
                     <div class="form-group">
-                        {!! Form::checkbox('transVolume', '1', true, ['id' => 'transVolume']) !!}
+                        {!! Form::checkbox('transVolume', '1', '1', ['id' => 'transVolume']) !!}
                         {!! Form::label('transVolume', 'Change Transaction Volumes', ['class' => 'option']) !!}                        
                     </div>
                 </div>
