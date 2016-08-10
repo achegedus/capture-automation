@@ -71,7 +71,10 @@ class TransactionsCheck extends Command
             // if the proposedVolume column is NULL it will be skipped
             if ($trans->proposedVolume_livebills >= 0) {
                 
-                $liveTransPercentUsed = $trans->actual_livebills / $trans->proposedVolume_livebills * 100;
+                if ($trans->proposedVolume_livebills == 0)
+                    $liveTransPercentUsed = 0;
+                else
+                    $liveTransPercentUsed = $trans->actual_livebills / $trans->proposedVolume_livebills * 100;
                 
                 // Exceeded Proposed Volume
                 if ($trans->actual_livebills > $trans->proposedVolume_livebills) {
@@ -89,7 +92,7 @@ class TransactionsCheck extends Command
                         $m->to('bills@energycap.com')->subject("Usage Alert");
                     });
                     
-                } else if (($liveTransPercentUsed - $daysPercentUsed) > $trans->usage_alert_percent) {
+                } else if (($liveTransPercentUsed > 0 ) && (($liveTransPercentUsed - $daysPercentUsed) > $trans->usage_alert_percent)) {
                     $liveOutput = array(); // set the empty array for the view
                     $liveOutput['clientName'] = $trans->clientName;
                     $liveOutput['transUsedPercentage'] = round($liveTransPercentUsed);
