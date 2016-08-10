@@ -48,11 +48,12 @@ class TransactionsCheck extends Command
         // Loop through clients
         foreach ($clients as $client) {
             
-            Log::info('----------'.$client->clientName);
+            Log::info('----- ' . $client->clientName);
             
             // get transaction data
-            if (!$trans = $client->transaction_data())
+            if (!$trans = $client->transaction_data()) {
                 continue;
+            }
             
             $trans->ECMA_start = Carbon::createFromFormat('Y-m-d', $trans->ECMA_start);
             $trans->renewal_ecmaDate = Carbon::createFromFormat('Y-m-d', $trans->renewal_ecmaDate);
@@ -64,6 +65,7 @@ class TransactionsCheck extends Command
             $currentDate = new Carbon();
             $ecmaToDate = $trans->ECMA_start->diffInDays($currentDate);
             $daysPercentUsed = $ecmaToDate / $ecmaDays * 100;
+            
             
             // **************** Live Bills ******************* //
             
@@ -81,6 +83,12 @@ class TransactionsCheck extends Command
                     $liveOutput['actualUsage'] = $trans->actual_livebills;
                     $liveOutput['type'] = "Live Transactions";
                     $liveOutput['subType'] = "Exceeded";
+    
+                    // send email
+                    Mail::send('emails.trans-alert', $liveOutput, function ($m) {
+                        $m->from('bills@energycap.com', 'EnergyCAP Bill CAPture');
+                        $m->to('bills@energycap.com')->subject("Usage Alert");
+                    });
                     
                 } else if (($liveTransPercentUsed - $daysPercentUsed) > $trans->usage_alert_percent) {
                     $liveOutput = array(); // set the empty array for the view
@@ -89,15 +97,15 @@ class TransactionsCheck extends Command
                     $liveOutput['daysUsedPercentage'] = round($daysPercentUsed);
                     $liveOutput['type'] = "Live Transactions";
                     $liveOutput['subType'] = "Pace";
-
-                }
     
-                // send email
-                Mail::send('emails.trans-alert', $liveOutput, function ($m) {
-                    $m->from('bills@energycap.com', 'EnergyCAP Bill CAPture');
-                    $m->to('bills@energycap.com')->subject("Usage Alert");
-                });
+                    // send email
+                    Mail::send('emails.trans-alert', $liveOutput, function ($m) {
+                        $m->from('bills@energycap.com', 'EnergyCAP Bill CAPture');
+                        $m->to('bills@energycap.com')->subject("Usage Alert");
+                    });
+                }
             }
+            
     
             // *************** Historical Bills ************** //
     
@@ -112,7 +120,7 @@ class TransactionsCheck extends Command
                     $histOutput['totalContracted'] = $trans->proposedVolume_histbills;
                     $histOutput['actualUsage'] = $trans->actual_histbills;
                     $histOutput['type'] = "Historical Transactions";
-    
+                    
                     // send email
                     Mail::send('emails.trans-alert', $histOutput, function ($m) {
                         $m->from('bills@energycap.com', 'EnergyCAP Bill CAPture');
@@ -120,6 +128,7 @@ class TransactionsCheck extends Command
                     });
                 }
             }
+            
     
             // ******************* Accounts ****************** //
     
