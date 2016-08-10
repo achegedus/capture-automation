@@ -81,7 +81,8 @@ class TransactionsCheck extends Command
                     $liveOutput['actualUsage'] = $trans->actual_livebills;
                     $liveOutput['type'] = "Live Transactions";
                     $liveOutput['subType'] = "Exceeded";
-    
+                    $liveOutput['renewal'] = $trans->renewal_ecmaDate->toFormattedDateString();
+                    
                     // send email
                     Mail::send('emails.trans-alert', $liveOutput, function ($m) {
                         $m->from('bills@energycap.com', 'EnergyCAP Bill CAPture');
@@ -95,6 +96,7 @@ class TransactionsCheck extends Command
                     $liveOutput['daysUsedPercentage'] = round($daysPercentUsed);
                     $liveOutput['type'] = "Live Transactions";
                     $liveOutput['subType'] = "Pace";
+                    $liveOutput['renewal'] = $trans->renewal_ecmaDate->toFormattedDateString();
     
                     // send email
                     Mail::send('emails.trans-alert', $liveOutput, function ($m) {
@@ -118,6 +120,7 @@ class TransactionsCheck extends Command
                     $histOutput['totalContracted'] = $trans->proposedVolume_histbills;
                     $histOutput['actualUsage'] = $trans->actual_histbills;
                     $histOutput['type'] = "Historical Transactions";
+                    $histOutput['renewal'] = $trans->renewal_ecmaDate->toFormattedDateString();
                     
                     // send email
                     Mail::send('emails.trans-alert', $histOutput, function ($m) {
@@ -139,6 +142,7 @@ class TransactionsCheck extends Command
                     $acctOutput['totalContracted'] = $trans->proposedVolume_accts;
                     $acctOutput['actualUsage'] = $trans->actual_newAccounts;
                     $acctOutput['type'] = "Meter Enrollments";
+                    $acctOutput['renewal'] = $trans->renewal_ecmaDate->toFormattedDateString();
                     
                     // send email
                     Mail::send('emails.trans-alert', $acctOutput, function ($m) {
