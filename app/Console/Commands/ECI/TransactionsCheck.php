@@ -48,11 +48,10 @@ class TransactionsCheck extends Command
         // Loop through clients
         foreach ($clients as $client) {
             
-            Log::info('----------'.$client->clientName);
-            
             // get transaction data
-            if (!$trans = $client->transaction_data())
+            if (!$trans = $client->transaction_data()) {
                 continue;
+            }
             
             $trans->ECMA_start = Carbon::createFromFormat('Y-m-d', $trans->ECMA_start);
             $trans->renewal_ecmaDate = Carbon::createFromFormat('Y-m-d', $trans->renewal_ecmaDate);
@@ -65,13 +64,17 @@ class TransactionsCheck extends Command
             $ecmaToDate = $trans->ECMA_start->diffInDays($currentDate);
             $daysPercentUsed = $ecmaToDate / $ecmaDays * 100;
             
+            
             // **************** Live Bills ******************* //
             
             // On Pace
             // if the proposedVolume column is NULL it will be skipped
-            if ($trans->proposedVolume_livebills) {
+            if ($trans->proposedVolume_livebills >= 0) {
                 
-                $liveTransPercentUsed = $trans->actual_livebills / $trans->proposedVolume_livebills * 100;
+                if ($trans->proposedVolume_livebills == 0)
+                    $liveTransPercentUsed = 0;
+                else
+                    $liveTransPercentUsed = $trans->actual_livebills / $trans->proposedVolume_livebills * 100;
                 
                 // Exceeded Proposed Volume
                 if ($trans->actual_livebills > $trans->proposedVolume_livebills) {
@@ -81,28 +84,36 @@ class TransactionsCheck extends Command
                     $liveOutput['actualUsage'] = $trans->actual_livebills;
                     $liveOutput['type'] = "Live Transactions";
                     $liveOutput['subType'] = "Exceeded";
+                    $liveOutput['renewal'] = $trans->renewal_ecmaDate->toFormattedDateString();
                     
-                } else if (($liveTransPercentUsed - $daysPercentUsed) > $trans->usage_alert_percent) {
+                    // send email
+                    Mail::send('emails.trans-alert', $liveOutput, function ($m) {
+                        $m->from('bills@energycap.com', 'EnergyCAP Bill CAPture');
+                        $m->to('bills@energycap.com')->subject("Usage Alert");
+                    });
+                    
+                } else if (($liveTransPercentUsed > 0 ) && (($liveTransPercentUsed - $daysPercentUsed) > $trans->usage_alert_percent)) {
                     $liveOutput = array(); // set the empty array for the view
                     $liveOutput['clientName'] = $trans->clientName;
                     $liveOutput['transUsedPercentage'] = round($liveTransPercentUsed);
                     $liveOutput['daysUsedPercentage'] = round($daysPercentUsed);
                     $liveOutput['type'] = "Live Transactions";
                     $liveOutput['subType'] = "Pace";
-
-                }
+                    $liveOutput['renewal'] = $trans->renewal_ecmaDate->toFormattedDateString();
     
-                // send email
-                Mail::send('emails.trans-alert', $liveOutput, function ($m) {
-                    $m->from('bills@energycap.com', 'EnergyCAP Bill CAPture');
-                    $m->to('bills@energycap.com')->subject("Usage Alert");
-                });
+                    // send email
+                    Mail::send('emails.trans-alert', $liveOutput, function ($m) {
+                        $m->from('bills@energycap.com', 'EnergyCAP Bill CAPture');
+                        $m->to('bills@energycap.com')->subject("Usage Alert");
+                    });
+                }
             }
+            
     
             // *************** Historical Bills ************** //
     
             // if the proposedVolume column is NULL it will be skipped
-            if ($trans->proposedVolume_histbills) {
+            if ($trans->proposedVolume_histbills >= 0) {
         
                 // check to see if they used more than 10 transactions over their proposed amount
                 if ($trans->actual_histbills > ($trans->proposedVolume_histbills + 10)) {
@@ -112,7 +123,8 @@ class TransactionsCheck extends Command
                     $histOutput['totalContracted'] = $trans->proposedVolume_histbills;
                     $histOutput['actualUsage'] = $trans->actual_histbills;
                     $histOutput['type'] = "Historical Transactions";
-    
+                    $histOutput['renewal'] = $trans->renewal_ecmaDate->toFormattedDateString();
+                    
                     // send email
                     Mail::send('emails.trans-alert', $histOutput, function ($m) {
                         $m->from('bills@energycap.com', 'EnergyCAP Bill CAPture');
@@ -120,11 +132,12 @@ class TransactionsCheck extends Command
                     });
                 }
             }
+            
     
             // ******************* Accounts ****************** //
     
             // if the proposedVolume column is NULL it will be skipped
-            if ($trans->proposedVolume_accts) {
+            if ($trans->proposedVolume_accts >= 0) {
         
                 if ($trans->actual_newAccounts > ($trans->proposedVolume_accts + 10)) {
                     $acctOutput = array(); // set the empty array for the view
@@ -132,6 +145,7 @@ class TransactionsCheck extends Command
                     $acctOutput['totalContracted'] = $trans->proposedVolume_accts;
                     $acctOutput['actualUsage'] = $trans->actual_newAccounts;
                     $acctOutput['type'] = "Meter Enrollments";
+                    $acctOutput['renewal'] = $trans->renewal_ecmaDate->toFormattedDateString();
                     
                     // send email
                     Mail::send('emails.trans-alert', $acctOutput, function ($m) {

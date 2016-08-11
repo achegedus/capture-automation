@@ -10,24 +10,24 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-
+use Illuminate\Support\Facades\Input as Input;
 Route::group(['middleware' => ['web']], function () {
-    
+
     # Authentication Routes
     Route::get('/auth0/callback', '\Auth0\Login\Auth0Controller@callback');
     Route::get('/logout', function () {
         Auth::logout();
-        
+
         return redirect('');
     });
-    
-    
+
+
     # Client UI Routes
     Route::get('/', 'ClientController@index');
     Route::get('/stats', 'ClientController@stats');
-    
+
     Route::get('/upload', 'ClientController@index');
-    Route::get('/list_upload', 'UploadController@list_upload');
+    //Route::get('/list_upload', 'UploadController@list_upload');
     Route::get('/check_duplicates/{file}', 'UploadController@check_duplicates');
     Route::post('/process_upload', function() {
         if (Request::ajax()) {
@@ -36,22 +36,22 @@ Route::group(['middleware' => ['web']], function () {
             $destinationPath = public_path() . '/uploads/';
             $filename = $file->getClientOriginalName();
             $fileexists = file_exists($filename);
-        
-        
+
+
             if (!$fileexists) {
-            
+
                 $upload_success = Input::file('file')->move($destinationPath, $filename);
-            
+
                 return Response::json('sucesss', 200);
             } else {
                 echo 'else';
-            
+
                 return Response::json('error', 400);
             }
         }
     });
-    
-    
+
+
     # Admin UI Routes
     Route::group(['namespace' => 'Admin'], function () {
         Route::get('/admin/', 'AdminController@clientList');
@@ -60,6 +60,6 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('/admin/settings/{id}', 'AdminController@settings');
         Route::post('/admin/submit/{id}', 'AdminController@formSubmit');
     });
-    
-    
+
+
 });

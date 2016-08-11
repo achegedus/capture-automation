@@ -132,6 +132,7 @@
     myDropzone.on("sending", function (file, xhr, formData) {
         // Show the total progress bar when upload starts
         document.querySelector("#total-progress").style.opacity = "1";
+        formData.append("_token", $('[name=_token').val());
         //sends value of options radio buttons to ajax request
         formData.append("options", $("input[name=options]").val());
 
@@ -194,20 +195,32 @@
         });
 
     }
+//     $(function () {
+//     $.ajaxSetup({
+//         headers: { 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content') }
+//     });
+// });
+    //$("#grid-basic").bootgrid();
+
+
 </script>  <!-- js for the add files area /-->
 
 
 <div class=container id=container>
 
     <h2>Bill Upload History</h2>
-    <table class="table table-striped">
+    <table data-toggle="table" data-striped="true" data-sort-name="uploadTimestamp" data-sort-order="desc" data-pagination="true">
+      <thead>
         <tr>
-            <th>Filename</th>
-            <th>Upload Date</th>
-            <th>Batch Code</th>
-            <th>Last Activity</th>
+            <th data-field="fileName" data-sortable="true">Filename</th>
+            <th data-field="uploadTimestamp" data-sortable="true">Upload Date</th>
+            <th data-field="batchCode">Batch Code</th>
+            <th data-field="processDate">Last Activity</th>
             <th>Status</th>
         </tr>
+      </thead>
+
+      <tbody>
 
         @foreach ($history as $item)
             <tr>
@@ -235,8 +248,9 @@
                 @endif
             </tr>
         @endforeach
-
+    </tbody>
 
     </table>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-bootgrid/1.3.1/jquery.bootgrid.js"></script>
 </div>
 @endsection

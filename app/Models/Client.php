@@ -194,4 +194,71 @@ ORDER BY processDate DESC;";
     }
     
     
+    /**
+     * returns URL of bill images
+     *
+     * @return string
+     */
+    public function billImageURL()
+    {
+        if ($this->catalogServiceID == "4") {
+            return "https://billimages.energycap.com/images/express/{$this->datasource}/{$this->username}";
+        } else if ($this->catalogServiceID == "2") {
+            return "https://billimages.energycap.com/images/pro/{$this->datasource}/{$this->username}";
+        } else {
+            return "https://billimages.energycap.com/images/{$this->datasource}";
+        }
+    }
+    
+    
+    /**
+     * takes clientEmail and returns comma delimited list of non eci addresses
+     *
+     * @return array
+     */
+    public function clientEmails()
+    {
+        //take the list of emails from the ECBC database and find the @energycap.com address's to use in the BCC for any email that is sent
+        $splitEmails = explode(",", $this->clientEmail);
+        $clientEmails = array();
+    
+        foreach ($splitEmails as $email) {
+            if (!preg_match('/@energycap\.com/i', $email)) {
+                $clientEmails[] = $email;
+            }
+        }
+    
+        if (count($clientEmails) == 0) {
+            return null;
+        } else {
+            return $clientEmails;
+        }
+    }
+    
+    
+    /**
+     * takes clientEmail and returns comma delimited list of only eci addresses
+     *
+     * @return array
+     */
+    public function bccEmails()
+    {
+        //take the list of emails from the ECBC database and find the @energycap.com address's to use in the BCC for any email that is sent
+        $splitEmails = explode(",", $this->clientEmail);
+        $bccEmails = array();
+    
+        foreach ($splitEmails as $email) {
+            if (preg_match('/@energycap\.com/i', $email)) {
+                $bccEmails[] = $email;
+            }
+        }
+        
+        if (count($bccEmails) == 0) {
+            return null;
+        } else {
+            return $bccEmails;
+        }
+    }
+    
+    
 }

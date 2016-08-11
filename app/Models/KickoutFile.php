@@ -11,6 +11,9 @@ class KickoutFile extends Model
     protected $primaryKey = 'kickoutFileID';
     public $timestamps = false;
     
+    protected $dateFormat = 'Y-m-d h:i:s';
+    protected $dates = ['reprocessDate', 'createdDate'];
+    
     
     // Relationships
     /**

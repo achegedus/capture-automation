@@ -11,6 +11,9 @@ class PartnerFile extends Model
     protected $primaryKey = 'partnerFileID';
     public $timestamps = false;
     
+    protected $dateFormat = 'Y-m-d H:i:s';
+    protected $dates = ['processDate', 'closeDate', 'downloadTimestamp', 'lastKickoutEmail'];
+    
     // Relationships
     /**
      * Client for this partner file
