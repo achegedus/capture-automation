@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width"/>
     <style>
         /**********************************************
@@ -11,20 +11,20 @@
         /* Client-specific Styles & Reset */
 
         #outlook a {
-            padding:0;
+            padding: 0;
         }
 
-        body{
-            width:100% !important;
+        body {
+            width: 100% !important;
             min-width: 100%;
-            -webkit-text-size-adjust:100%;
-            -ms-text-size-adjust:100%;
-            margin:0;
-            padding:0;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            margin: 0;
+            padding: 0;
         }
 
         .ExternalClass {
-            width:100%;
+            width: 100%;
         }
 
         .ExternalClass,
@@ -37,15 +37,15 @@
         }
 
         #backgroundTable {
-            margin:0;
-            padding:0;
-            width:100% !important;
+            margin: 0;
+            padding: 0;
+            width: 100% !important;
             line-height: 100% !important;
         }
 
         img {
-            outline:none;
-            text-decoration:none;
+            outline: none;
+            text-decoration: none;
             -ms-interpolation-mode: bicubic;
             width: auto;
             max-width: 100%;
@@ -147,81 +147,253 @@
             padding-right: 0px;
         }
 
-        table.one { width: 30px; }
-        table.two { width: 80px; }
-        table.three { width: 130px; }
-        table.four { width: 180px; }
-        table.five { width: 230px; }
-        table.six { width: 280px; }
-        table.seven { width: 330px; }
-        table.eight { width: 380px; }
-        table.nine { width: 430px; }
-        table.ten { width: 480px; }
-        table.eleven { width: 530px; }
-        table.twelve { width: 580px; }
+        table.one {
+            width: 30px;
+        }
 
-        table.one center { min-width: 30px; }
-        table.two center { min-width: 80px; }
-        table.three center { min-width: 130px; }
-        table.four center { min-width: 180px; }
-        table.five center { min-width: 230px; }
-        table.six center { min-width: 280px; }
-        table.seven center { min-width: 330px; }
-        table.eight center { min-width: 380px; }
-        table.nine center { min-width: 430px; }
-        table.ten center { min-width: 480px; }
-        table.eleven center { min-width: 530px; }
-        table.twelve center { min-width: 580px; }
+        table.two {
+            width: 80px;
+        }
 
-        table.one .panel center { min-width: 10px; }
-        table.two .panel center { min-width: 60px; }
-        table.three .panel center { min-width: 110px; }
-        table.four .panel center { min-width: 160px; }
-        table.five .panel center { min-width: 210px; }
-        table.six .panel center { min-width: 260px; }
-        table.seven .panel center { min-width: 310px; }
-        table.eight .panel center { min-width: 360px; }
-        table.nine .panel center { min-width: 410px; }
-        table.ten .panel center { min-width: 460px; }
-        table.eleven .panel center { min-width: 510px; }
-        table.twelve .panel center { min-width: 560px; }
+        table.three {
+            width: 130px;
+        }
+
+        table.four {
+            width: 180px;
+        }
+
+        table.five {
+            width: 230px;
+        }
+
+        table.six {
+            width: 280px;
+        }
+
+        table.seven {
+            width: 330px;
+        }
+
+        table.eight {
+            width: 380px;
+        }
+
+        table.nine {
+            width: 430px;
+        }
+
+        table.ten {
+            width: 480px;
+        }
+
+        table.eleven {
+            width: 530px;
+        }
+
+        table.twelve {
+            width: 580px;
+        }
+
+        table.one center {
+            min-width: 30px;
+        }
+
+        table.two center {
+            min-width: 80px;
+        }
+
+        table.three center {
+            min-width: 130px;
+        }
+
+        table.four center {
+            min-width: 180px;
+        }
+
+        table.five center {
+            min-width: 230px;
+        }
+
+        table.six center {
+            min-width: 280px;
+        }
+
+        table.seven center {
+            min-width: 330px;
+        }
+
+        table.eight center {
+            min-width: 380px;
+        }
+
+        table.nine center {
+            min-width: 430px;
+        }
+
+        table.ten center {
+            min-width: 480px;
+        }
+
+        table.eleven center {
+            min-width: 530px;
+        }
+
+        table.twelve center {
+            min-width: 580px;
+        }
+
+        table.one .panel center {
+            min-width: 10px;
+        }
+
+        table.two .panel center {
+            min-width: 60px;
+        }
+
+        table.three .panel center {
+            min-width: 110px;
+        }
+
+        table.four .panel center {
+            min-width: 160px;
+        }
+
+        table.five .panel center {
+            min-width: 210px;
+        }
+
+        table.six .panel center {
+            min-width: 260px;
+        }
+
+        table.seven .panel center {
+            min-width: 310px;
+        }
+
+        table.eight .panel center {
+            min-width: 360px;
+        }
+
+        table.nine .panel center {
+            min-width: 410px;
+        }
+
+        table.ten .panel center {
+            min-width: 460px;
+        }
+
+        table.eleven .panel center {
+            min-width: 510px;
+        }
+
+        table.twelve .panel center {
+            min-width: 560px;
+        }
 
         .body .columns td.one,
-        .body .column td.one { width: 8.333333%; }
-        .body .columns td.two,
-        .body .column td.two { width: 16.666666%; }
-        .body .columns td.three,
-        .body .column td.three { width: 25%; }
-        .body .columns td.four,
-        .body .column td.four { width: 33.333333%; }
-        .body .columns td.five,
-        .body .column td.five { width: 41.666666%; }
-        .body .columns td.six,
-        .body .column td.six { width: 50%; }
-        .body .columns td.seven,
-        .body .column td.seven { width: 58.333333%; }
-        .body .columns td.eight,
-        .body .column td.eight { width: 66.666666%; }
-        .body .columns td.nine,
-        .body .column td.nine { width: 75%; }
-        .body .columns td.ten,
-        .body .column td.ten { width: 83.333333%; }
-        .body .columns td.eleven,
-        .body .column td.eleven { width: 91.666666%; }
-        .body .columns td.twelve,
-        .body .column td.twelve { width: 100%; }
+        .body .column td.one {
+            width: 8.333333%;
+        }
 
-        td.offset-by-one { padding-left: 50px; }
-        td.offset-by-two { padding-left: 100px; }
-        td.offset-by-three { padding-left: 150px; }
-        td.offset-by-four { padding-left: 200px; }
-        td.offset-by-five { padding-left: 250px; }
-        td.offset-by-six { padding-left: 300px; }
-        td.offset-by-seven { padding-left: 350px; }
-        td.offset-by-eight { padding-left: 400px; }
-        td.offset-by-nine { padding-left: 450px; }
-        td.offset-by-ten { padding-left: 500px; }
-        td.offset-by-eleven { padding-left: 550px; }
+        .body .columns td.two,
+        .body .column td.two {
+            width: 16.666666%;
+        }
+
+        .body .columns td.three,
+        .body .column td.three {
+            width: 25%;
+        }
+
+        .body .columns td.four,
+        .body .column td.four {
+            width: 33.333333%;
+        }
+
+        .body .columns td.five,
+        .body .column td.five {
+            width: 41.666666%;
+        }
+
+        .body .columns td.six,
+        .body .column td.six {
+            width: 50%;
+        }
+
+        .body .columns td.seven,
+        .body .column td.seven {
+            width: 58.333333%;
+        }
+
+        .body .columns td.eight,
+        .body .column td.eight {
+            width: 66.666666%;
+        }
+
+        .body .columns td.nine,
+        .body .column td.nine {
+            width: 75%;
+        }
+
+        .body .columns td.ten,
+        .body .column td.ten {
+            width: 83.333333%;
+        }
+
+        .body .columns td.eleven,
+        .body .column td.eleven {
+            width: 91.666666%;
+        }
+
+        .body .columns td.twelve,
+        .body .column td.twelve {
+            width: 100%;
+        }
+
+        td.offset-by-one {
+            padding-left: 50px;
+        }
+
+        td.offset-by-two {
+            padding-left: 100px;
+        }
+
+        td.offset-by-three {
+            padding-left: 150px;
+        }
+
+        td.offset-by-four {
+            padding-left: 200px;
+        }
+
+        td.offset-by-five {
+            padding-left: 250px;
+        }
+
+        td.offset-by-six {
+            padding-left: 300px;
+        }
+
+        td.offset-by-seven {
+            padding-left: 350px;
+        }
+
+        td.offset-by-eight {
+            padding-left: 400px;
+        }
+
+        td.offset-by-nine {
+            padding-left: 450px;
+        }
+
+        td.offset-by-ten {
+            padding-left: 500px;
+        }
+
+        td.offset-by-eleven {
+            padding-left: 550px;
+        }
 
         td.expander {
             visibility: hidden;
@@ -258,35 +430,35 @@
 
         .block-grid td {
             display: inline-block;
-            padding:10px;
+            padding: 10px;
         }
 
         .two-up td {
-            width:270px;
+            width: 270px;
         }
 
         .three-up td {
-            width:173px;
+            width: 173px;
         }
 
         .four-up td {
-            width:125px;
+            width: 125px;
         }
 
         .five-up td {
-            width:96px;
+            width: 96px;
         }
 
         .six-up td {
-            width:76px;
+            width: 76px;
         }
 
         .seven-up td {
-            width:62px;
+            width: 62px;
         }
 
         .eight-up td {
-            width:52px;
+            width: 52px;
         }
 
         /* Alignment & Visibility Classes */
@@ -326,7 +498,7 @@
             color: #222222;
             font-family: "Helvetica", "Arial", sans-serif;
             font-weight: normal;
-            padding:0;
+            padding: 0;
             margin: 0;
             text-align: left;
             line-height: 1.3;
@@ -336,17 +508,38 @@
             word-break: normal;
         }
 
-        h1 {font-size: 40px;}
-        h2 {font-size: 36px;}
-        h3 {font-size: 32px;}
-        h4 {font-size: 28px;}
-        h5 {font-size: 24px;}
-        h6 {font-size: 20px;}
-        body, table.body, p, td {font-size: 14px;line-height:19px;}
+        h1 {
+            font-size: 40px;
+        }
+
+        h2 {
+            font-size: 36px;
+        }
+
+        h3 {
+            font-size: 32px;
+        }
+
+        h4 {
+            font-size: 28px;
+        }
+
+        h5 {
+            font-size: 24px;
+        }
+
+        h6 {
+            font-size: 20px;
+        }
+
+        body, table.body, p, td {
+            font-size: 14px;
+            line-height: 19px;
+        }
 
         p.lead, p.lede, p.leed {
             font-size: 18px;
-            line-height:21px;
+            line-height: 21px;
         }
 
         p {
@@ -630,29 +823,64 @@
             }
 
             table[class="body"] .columns td.one,
-            table[class="body"] .column td.one { width: 8.333333% !important; }
+            table[class="body"] .column td.one {
+                width: 8.333333% !important;
+            }
+
             table[class="body"] .columns td.two,
-            table[class="body"] .column td.two { width: 16.666666% !important; }
+            table[class="body"] .column td.two {
+                width: 16.666666% !important;
+            }
+
             table[class="body"] .columns td.three,
-            table[class="body"] .column td.three { width: 25% !important; }
+            table[class="body"] .column td.three {
+                width: 25% !important;
+            }
+
             table[class="body"] .columns td.four,
-            table[class="body"] .column td.four { width: 33.333333% !important; }
+            table[class="body"] .column td.four {
+                width: 33.333333% !important;
+            }
+
             table[class="body"] .columns td.five,
-            table[class="body"] .column td.five { width: 41.666666% !important; }
+            table[class="body"] .column td.five {
+                width: 41.666666% !important;
+            }
+
             table[class="body"] .columns td.six,
-            table[class="body"] .column td.six { width: 50% !important; }
+            table[class="body"] .column td.six {
+                width: 50% !important;
+            }
+
             table[class="body"] .columns td.seven,
-            table[class="body"] .column td.seven { width: 58.333333% !important; }
+            table[class="body"] .column td.seven {
+                width: 58.333333% !important;
+            }
+
             table[class="body"] .columns td.eight,
-            table[class="body"] .column td.eight { width: 66.666666% !important; }
+            table[class="body"] .column td.eight {
+                width: 66.666666% !important;
+            }
+
             table[class="body"] .columns td.nine,
-            table[class="body"] .column td.nine { width: 75% !important; }
+            table[class="body"] .column td.nine {
+                width: 75% !important;
+            }
+
             table[class="body"] .columns td.ten,
-            table[class="body"] .column td.ten { width: 83.333333% !important; }
+            table[class="body"] .column td.ten {
+                width: 83.333333% !important;
+            }
+
             table[class="body"] .columns td.eleven,
-            table[class="body"] .column td.eleven { width: 91.666666% !important; }
+            table[class="body"] .column td.eleven {
+                width: 91.666666% !important;
+            }
+
             table[class="body"] .columns td.twelve,
-            table[class="body"] .column td.twelve { width: 100% !important; }
+            table[class="body"] .column td.twelve {
+                width: 100% !important;
+            }
 
             table[class="body"] td.offset-by-one,
             table[class="body"] td.offset-by-two,
@@ -823,23 +1051,27 @@
 
                                         <table class="twelve columns">
                                             <tr>
-                                                <td><img src="http://www.energycap.com/media/images/logo.png"></td>
+                                                <td>
+                                                    <img src="http://www.energycap.com/media/images/logo.png">
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>
+                                                    <br>
                                                     <h6>Thank you for using EnergyCAP Bill CAPture!</h6>
-                                                    <p style="margin-top:10px;"><?php echo $clientName; ?>,</p>
-                                                    <?php
-                                                    if ($type == 'Live Transactions' && $subType == 'Pace') {
-                                                        $msg = "Our records indicate that you are on pace to exceed your contracted number of <b>$type</b> by the end of the current processing year. If this trend continues and an overage occurs, a charge will be assessed at the rate specified in your Bill CAPture contract. <p>As of today, you are <b>$daysUsedPercentage%</b> into the current processing period and have used <b>$transUsedPercentage%</b> of your contracted number of <b>$type</b>.<p>To review processing statistics, please log into your <a href = \"http://billcapture.energycap.com/login\">Bill CAPture upload account</a> and click on the “Stats” tab. If you have any questions or would like to turn off this alert, please <a href=\"http://support.energycap.com/index.php?/Tickets/Submit\">contact us</a>.</p>";
-                                                    }
-                                                    else {
-                                                        $msg = "Our records indicate that you have exceeded your contracted number of <b>$type</b>. <b>(Contracted = $totalContracted | Actual = $actualUsage)</b>  At the end of the current processing year ($renewal), a charge will be assessed for this overage at the rate specified in your Bill CAPture contract. <p>To review processing statistics, please log into your <a href = \"http://billcapture.energycap.com/login\">Bill CAPture upload account</a> and click on the “Stats” tab. If you have any questions or would like to turn off this alert, please <a href=\"http://support.energycap.com/index.php?/Tickets/Submit\">contact us</a>.</p>";
-                                                    }
-                                                    ?>
+                                                    <p style="margin-top:10px;">{{ $client->clientName }},</p>
+                                                    <p style="margin-top:10px;">This is an overdue kickout reminder. The
+                                                        original kickout date was on
+                                                        <b>{{ $partnerFile->processDate }}</b>. Please fix the
+                                                        following error(s).</p>
+                                                    <p style="margin-top:10px;margin-bottom:0px">Original File Name:
+                                                        <b>{{ $partnerFile->fileName }}</b></p>
+                                                    <p style="margin-top:10px;">Reserved Batch Name:
+                                                        <b>{{ $partnerFile->batchCode }}</b></p>
 
-                                                    <p style="margin-top:10px;"><?php echo $msg; ?></p>
-
+                                                    <p style="margin-top:10px;"><a
+                                                                href="http://billcapture.energycap.com/docs/display/BC/Bill+CAPture+-+Resolving+Kickouts">How
+                                                            do I resolve these kickouts?</a></p>
                                                 </td>
                                                 <td class="expander"></td>
                                             </tr>
@@ -857,10 +1089,60 @@
                                             <tr>
                                                 <td>
                                                     <?php
+                                                    // loop through kickout records
+                                                    foreach ($kickouts as $kickout) {
+                                                        $kickoutText = str_getcsv($kickout->kickoutText, "\n"); //parse the rows
+                                                        foreach ($kickoutText as &$Row) $Row = str_getcsv($Row); //parse the items in rows
 
+                                                        $hash = "";
 
+                                                        // acceptable columns:
+                                                        $usableColumnsHeaders = array('accountcode', 'startdate', 'enddate', 'metercode', 'duedate', 'statementdate', 'vendorcode', 'ratecode', 'controlcode');
+                                                        $usableColumnNumbers = array();
 
+                                                        // find usable columns
+                                                        for ($x = 0; $x < count($kickoutText[0]); $x++) {
+                                                            if ($kickoutText[0][ $x ] == 'CONTROLCODE') {
+                                                                $controlCode = $x; //identifies the element number for Control Code
+                                                            }
+                                                            if (in_array(strtolower($kickoutText[0][ $x ]), $usableColumnsHeaders) || (strpos($kickoutText[0][ $x ], "*") !== false && $kickoutText[0][ $x ] != "*END_OF_RECORD_MARKER")) //if( in_array(strtolower($kickoutText[0][$x]), $usableColumnsHeaders))
+                                                            {
+                                                                $usableColumnNumbers[] = $x;
+                                                            }
+                                                        }
 
+                                                        echo "<p><b style='color:red'>Error:</b> " . $kickout->kickoutInfo . "</p>";
+//
+                                                        // generate Table
+                                                        echo "<table border='1' style='margin-bottom: 20px'>";
+                                                        // loop through kickoutText
+                                                        for ($i = 0; $i < count($kickoutText); $i++) {
+                                                            echo "<tr>";
+                                                            for ($j = 0; $j < count($kickoutText[ $i ]); $j++) {
+                                                                if (in_array($j, $usableColumnNumbers)) {
+                                                                    if ($i > 0) {
+                                                                        if ($j == $controlCode) {
+                                                                            $fileName = $kickoutText[ $i ][ $j ];
+                                                                            echo "<td><a href='".$client->billImageURL()."/".$fileName.".pdf'><img src=\"http://ecbc.energycap.com/images/Image-icon.png\" height=\"25\" width=\"25\" ></a></td>";
+                                                                        } else {
+                                                                            echo "<td style='font-size:11px; padding: 2px'>" . $kickoutText[ $i ][ $j ] . "</td>";
+                                                                        }
+                                                                    } else {
+                                                                        if ($kickoutText[ $i ][ $j ] == 'CONTROLCODE') {
+                                                                            echo "<th style='font-size:10px; padding: 2px'>IMAGE</th>";
+                                                                        } else {
+                                                                            echo "<th style='font-size:10px; padding: 2px'>" . $kickoutText[ $i ][ $j ] . "</th>";
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                            echo "</tr>";
+                                                        }
+                                                        echo "</table>";
+//
+                                                        $hash = $kickout->hash;
+                                                        $baseURL = url();
+                                                    }
                                                     ?>
                                                 </td>
                                                 <td class="expander"></td>
@@ -875,9 +1157,50 @@
                                 <tr>
                                     <td class="wrapper last">
 
+                                        <table class="twelve columns">
+                                            <tr>
+                                                <td>
+
+                                                    <p>Once you make the necessary corrections in EnergyCAP, you can
+                                                        resubmit the data for bill entry by clicking the reprocess
+                                                        button below. This button can only be clicked on once, so be
+                                                        sure to make corrections prior to clicking it.</p>
+
+                                                </td>
+                                                <td class="expander"></td>
+                                            </tr>
+                                        </table>
+
                                     </td>
                                 </tr>
                             </table>
+
+                            <!--                  <p style="margin-top:10px;"><a href="http://billcapture.energycap.com/docs/display/BC/Bill+CAPture+-+Resolving+Kickouts">How do I resolve these kickouts?</a></p>-->
+                            <table class="row">
+                                <tr>
+                                    <td class="wrapper last">
+
+                                        <table class="three columns">
+                                            <tr>
+                                                <td>
+
+                                                    <table class="button">
+                                                        <tr>
+                                                            <td>
+                                                                <a href="{{ url('/kickout/reprocess/' . $hash) }}" ?>Reprocess</a>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+
+                                                </td>
+                                                <td class="expander"></td>
+                                            </tr>
+                                        </table>
+
+                                    </td>
+                                </tr>
+                            </table>
+
 
                             <table class="row">
                                 <tr>
@@ -887,8 +1210,14 @@
                                             <tr>
                                                 <td align="center">
                                                     <center>
-                                                        <p style="text-align:center; margin-bottom: 0"><small>Copyright <?php echo date('Y'); ?> EnergyCAP, Inc.</small></p>
-                                                        <p style="text-align:center;"><small><a href="#">Terms</a> | <a href="#">Privacy</a></small></p>
+                                                        <p style="text-align:center; margin-bottom: 0">
+                                                            <small>Copyright <?php echo date('Y'); ?> EnergyCAP, Inc.
+                                                            </small>
+                                                        </p>
+                                                        <p style="text-align:center;">
+                                                            <small><a href="#">Terms</a> | <a href="#">Privacy</a>
+                                                            </small>
+                                                        </p>
                                                     </center>
                                                 </td>
                                                 <td class="expander"></td>
