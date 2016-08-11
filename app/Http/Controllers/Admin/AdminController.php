@@ -114,6 +114,12 @@ class AdminController extends Controller
         $client->ownerID = $request->ownerID;
         $client->kickoutGracePeriod = $request->gracePeriod;
         $client->usage_alert_percent = $request->usagePercent;
+        $client->batchPrefix = $request->livePrefix.="_";
+        $client->historyPrefix = $request->historyPrefix.="_";
+        $client->maintPrefix = $request->maintPrefix.="_";
+        $client->proposedVolume_livebills = $request->liveVol;
+        $client->proposedVolume_histbills = $request->historicalVol;
+        $client->proposedVolume_accts = $request->accountsVol;
         
         $client->save();
     }

@@ -17,13 +17,33 @@ use Carbon\Carbon;
 <script>    
     
     $(function() {
-        $("#alert").hide();  
+        $("#alert").hide();
+        $('#prefixesPanel').hide();
+        $('#setVolumePanel').hide();
         
         $('.datepick').datepicker({
             format: 'yyyy-mm-dd'
         });        
         
     });    
+    
+    $('#prefixesCheck').change(function(){
+        if(this.checked) {   
+            $('#prefixesPanel').fadeIn('slow');
+        }
+        else {   
+            $('#prefixesPanel').fadeOut('slow');   
+        }
+    });
+    
+    $('#transVolumeCheck').change(function(){
+        if(this.checked) {
+            $('#setVolumePanel').fadeIn('slow');
+        }
+        else {
+            $('#setVolumePanel').fadeOut('slow');
+        }
+    });
     
     $('#submitButton').click(function(){
         var id = document.getElementById("clientList").value; 
@@ -32,10 +52,11 @@ use Carbon\Carbon;
             url: "/admin/submit/" + id,
             data: $('#adminSettingsForm').serialize(),
             success: function() {
+                $("html, body").animate({ scrollTop: 0 }, "slow");
                 $("#alert").show();
                 $("#alert").fadeTo(2000, 500).slideUp(500, function(){
-                $("#alert").slideUp(500);
-            });                   
+                    $("#alert").slideUp(500);
+                });                   
             }
                 
         });
@@ -47,6 +68,19 @@ use Carbon\Carbon;
     $('#current_emails').text($('#example_email').val());
     $('#example_email').change( function(){
         $('#current_emails').text($(this).val());
+    });    
+    
+    $('#multi_tenant').change(function(){
+        if(this.checked)
+        {
+            $('#ownerDiv').fadeIn('slow');
+            $("#multi_tenant").prop('disabled', false);
+        }
+        else
+        {
+            $('#ownerDiv').fadeOut('slow');
+            $("#multi_tenant").prop('enabled', true);
+        }
     });    
     
 </script>    
@@ -100,7 +134,62 @@ $encoded_email = json_encode($converted_email);
         <div class="form-group">
             {!! Form::label('datasource', 'Datasource:') !!}
             {!! Form::text('datasource', $client->datasource, ['class' => 'form-control']) !!}
-        </div>              
+        </div>
+        <div id="prefixesPanel" class="panel panel-default">
+            <div class="panel-heading">
+				<h3 class="panel-title">Prefixes</h3>
+			</div>
+            <div class="panel-body">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        {!! Form::label('livePrefix', 'Live Batch Prefix', ['class' => '']) !!}
+                        <div class="input-group">
+                            {!! Form::text('livePrefix', (rtrim($client->batchPrefix, "_")), ['class' => 'form-control']) !!}
+                            <span class="input-group-addon">_</span>
+                        </div> 
+                    </div>
+                    <div class="form-group">
+                        {!! Form::label('historyPrefix', 'Historical Batch Prefix', ['class' => '']) !!}
+                        <div class="input-group">
+                            {!! Form::text('historyPrefix', (rtrim($client->historyPrefix, "_")), ['class' => 'form-control']) !!}
+                            <span class="input-group-addon">_</span>
+                        </div> 
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        {!! Form::label('maintPrefix', 'Maintenance Batch Prefix', ['class' => '']) !!}
+                        <div class="input-group">
+                            {!! Form::text('maintPrefix', (rtrim($client->maintPrefix, "_")), ['class' => 'form-control']) !!}
+                            <span class="input-group-addon">_</span>
+                        </div>                        
+                    </div>
+                </div>                 
+            </div>                     
+        </div>
+        <div id="setVolumePanel" class="panel panel-default">
+            <div class="panel-heading">
+				<h3 class="panel-title">Proposed Volumes</h3>
+			</div> 
+            <div class="panel-body">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        {!! Form::label('accountsVol', 'Accounts', ['class' => '']) !!}
+                        {!! Form::number('accountsVol', $client->proposedVolume_accts, ['class' => 'form-control', 'min' => '0']) !!}
+                    </div>
+                    <div class="form-group">
+                        {!! Form::label('liveVol', 'Live Bills', ['class' => '']) !!}
+                        {!! Form::number('liveVol', $client->proposedVolume_livebills, ['class' => 'form-control', 'min' => '0']) !!}                        
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        {!! Form::label('historicalVol', 'Historical Bills', ['class' => '']) !!}
+                        {!! Form::number('historicalVol', $client->proposedVolume_histbills, ['class' => 'form-control', 'min' => '0']) !!}
+                    </div>                    
+                </div>
+            </div>
+        </div>        
     </div>
     <div class="col-md-6">
         <div class="row">
@@ -148,7 +237,7 @@ $encoded_email = json_encode($converted_email);
                         {!! Form::checkbox('multi_tenant', '1', $client->multi_tenant, ['id' => 'multi_tenant']) !!}
                         {!! Form::label('multi_tenant', 'Multi-owner Database', ['class' => 'option']) !!}
                     </div>
-                    <div class="form-group">
+                    <div id="ownerDiv" class="form-group">
                         OwnerID
                         {!! Form::text('ownerID', $client->ownerID, ['class' => 'form-control']) !!}                         
                     </div>
@@ -165,11 +254,11 @@ $encoded_email = json_encode($converted_email);
                         {!! Form::label('batchOverride', 'Batch Override', ['class' => 'option']) !!}                        
                     </div>
                     <div class="form-group">
-                        {!! Form::checkbox('prefixes', '1', '1', ['id' => 'prefixes']) !!}
-                        {!! Form::label('prefixes', 'Change Batch Prefixes', ['class' => 'option']) !!}                        
+                        {!! Form::checkbox('prefixes', '1', null, ['id' => 'prefixesCheck']) !!}
+                        {!! Form::label('prefixesCheck', 'Change Batch Prefixes', ['class' => 'option']) !!}                        
                     </div>
                     <div class="form-group">
-                        {!! Form::checkbox('feeOptions', '1', '1', ['id' => 'feeOptions']) !!}
+                        {!! Form::checkbox('feeOptions', '1', null, ['id' => 'feeOptions']) !!}
                         {!! Form::label('feeOptions', 'Change Fee Options', ['class' => 'option']) !!}                        
                     </div>                    
                 </div>
@@ -177,7 +266,7 @@ $encoded_email = json_encode($converted_email);
                    <div class="form-group">
                        Kickout Grace Period
                         <div class="input-group">
-                            {!! Form::number('gracePeriod', $client->kickoutGracePeriod, ['class' => 'form-control']) !!}
+                            {!! Form::number('gracePeriod', $client->kickoutGracePeriod, ['class' => 'form-control', 'min' => '0']) !!}
                             <span class="input-group-addon">Days</span>
                         </div>
                     </div>
@@ -191,11 +280,14 @@ $encoded_email = json_encode($converted_email);
                     </div>
                     <div class="form-group">
                         Usage Percentage
-                        {!! Form::number('usagePercent', $client->usage_alert_percent, ['class' => 'form-control']) !!}                        
+                        <div class="input-group">
+                            {!! Form::number('usagePercent', $client->usage_alert_percent, ['class' => 'form-control', 'min' => '0']) !!}  
+                            <span class="input-group-addon">%</span>
+                        </div>
                     </div>
                     <div class="form-group">
-                        {!! Form::checkbox('transVolume', '1', '1', ['id' => 'transVolume']) !!}
-                        {!! Form::label('transVolume', 'Change Transaction Volumes', ['class' => 'option']) !!}                        
+                        {!! Form::checkbox('transVolume', '1', null, ['id' => 'transVolumeCheck']) !!}
+                        {!! Form::label('transVolumeCheck', 'Change Transaction Volumes', ['class' => 'option']) !!}                        
                     </div>
                 </div>
             </div>
