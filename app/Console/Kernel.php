@@ -15,7 +15,9 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         // Commands\Inspire::class,
         Commands\ECI\TransactionsCheck::class,
-        Commands\ECI\KickoutReminder::class
+        Commands\ECI\KickoutReminder::class,
+        Commands\ECI\ClientProcess::class,
+        Commands\ECI\PartnerProcess::class
     ];
 
     /**
