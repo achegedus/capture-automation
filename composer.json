@@ -10,7 +10,8 @@
         "adldap2/adldap2-laravel": "2.0.*",
         "auth0/login": "~3.1",
         "laravelcollective/bus": "5.2.*",
-        "laravelcollective/html": "5.2.*"
+        "laravelcollective/html": "5.2.*",
+        "dyaa/pushover": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
