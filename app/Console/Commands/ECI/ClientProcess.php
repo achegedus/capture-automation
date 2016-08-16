@@ -4,6 +4,7 @@ namespace App\Console\Commands\ECI;
 
 use App\Models\SystemData;
 use Carbon\Carbon;
+use Dyaa\Pushover\Facades\Pushover;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
 
@@ -49,6 +50,11 @@ class ClientProcess extends Command
     }
     
     
+    /**
+     * Check status of client process.  send alert notification if it is stuck.
+     *
+     * @return mixed
+     */
     private function checkClientProcessStatus()
     {
         // get info from systemData table
@@ -78,7 +84,8 @@ class ClientProcess extends Command
             });
             
             // send push alert
-            //TODO: Send push alert notification
+            Pushover::push("", "Client process stuck for " . $totalRun . " minutes.");
+            Pushover::send();
         }
         
         return $systemData->value;
