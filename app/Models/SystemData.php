@@ -8,6 +8,12 @@ class SystemData extends Model
 {
     //
     protected $table = 'systemData';
+    protected $primaryKey = 'systemDataID';
+    
     public $timestamps = false;
+    
+    protected $dateFormat = 'Y-m-d H:i:s';
+    protected $dates = ['timestamp', 'notifyTimestamp'];
+    
     
 }

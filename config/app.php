@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'America/New_York',
 
     /*
     |--------------------------------------------------------------------------
@@ -161,6 +161,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Adldap\Laravel\AdldapServiceProvider::class,
         'Auth0\Login\LoginServiceProvider',
+        'Dyaa\Pushover\PushoverServiceProvider',
     ],
 
     /*
@@ -210,6 +211,8 @@ return [
         'Auth0' => 'Auth0\Login\Facade\Auth0',
         'Form' => Collective\Html\FormFacade::class,
         'HTML' => Collective\Html\HtmlFacade::class, // Optional
+    
+        'Dyaa\Pushover\Facades\Pushover', // Pushover facade
     ],
 
 ];

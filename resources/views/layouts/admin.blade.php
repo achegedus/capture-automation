@@ -16,6 +16,7 @@
     
     <script type="text/javascript" src="/js/multiple-emails.js"></script>
     <link rel="stylesheet" type="text/css" href="/css/multiple-emails.css">
+    <link rel="stylesheet" tyep="text/css" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css">
 
     <style type="text/css" media="screen">
         body {

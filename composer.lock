@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5fdd31a813092025c2c9ef8019346aca",
-    "content-hash": "3e88320cf69c141d97c5ae56378e19df",
+    "hash": "a7640e104d8a2f7556c69f62f6946b40",
+    "content-hash": "d9e8276d0534664c4cd06b6d44228c69",
     "packages": [
         {
             "name": "adldap2/adldap2",
@@ -377,6 +377,53 @@
             "time": "2015-11-06 14:35:42"
         },
         {
+            "name": "dyaa/pushover",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dyaa/Laravel-pushover.git",
+                "reference": "10cf75417639e0fd7daa6ae414b9aae56ee5df52"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dyaa/Laravel-pushover/zipball/10cf75417639e0fd7daa6ae414b9aae56ee5df52",
+                "reference": "10cf75417639e0fd7daa6ae414b9aae56ee5df52",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5.0",
+                "php": ">=5.4.0"
+            },
+            "type": "laravel-package",
+            "autoload": {
+                "psr-0": {
+                    "Dyaa\\Pushover\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dyaa Eldin",
+                    "email": "mail@dyaa.me",
+                    "homepage": "http://www.dyaa.me/"
+                }
+            ],
+            "description": "Laravel 5 Pushover Package",
+            "keywords": [
+                "artisan",
+                "cli",
+                "command",
+                "laravel",
+                "notification",
+                "pushover",
+                "real time"
+            ],
+            "time": "2016-03-18 18:47:13"
+        },
+        {
             "name": "firebase/php-jwt",
             "version": "v3.0.0",
             "source": {
@@ -737,16 +784,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.2.42",
+            "version": "v5.2.43",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "d1bf46f359d2ede2d4ef847fb79d3758d868f2b7"
+                "reference": "5490b8f00564bb60839002f86828e27edd1e5610"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/d1bf46f359d2ede2d4ef847fb79d3758d868f2b7",
-                "reference": "d1bf46f359d2ede2d4ef847fb79d3758d868f2b7",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/5490b8f00564bb60839002f86828e27edd1e5610",
+                "reference": "5490b8f00564bb60839002f86828e27edd1e5610",
                 "shasum": ""
             },
             "require": {
@@ -863,7 +910,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2016-08-08 13:39:44"
+            "time": "2016-08-10 12:23:59"
         },
         {
             "name": "laravelcollective/bus",
@@ -966,16 +1013,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.26",
+            "version": "1.0.27",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "fb3b30dca320b36931ea878fea17ebe136fba1b0"
+                "reference": "50e2045ed70a7e75a5e30bc3662904f3b67af8a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/fb3b30dca320b36931ea878fea17ebe136fba1b0",
-                "reference": "fb3b30dca320b36931ea878fea17ebe136fba1b0",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/50e2045ed70a7e75a5e30bc3662904f3b67af8a9",
+                "reference": "50e2045ed70a7e75a5e30bc3662904f3b67af8a9",
                 "shasum": ""
             },
             "require": {
@@ -1045,7 +1092,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2016-08-03 09:49:11"
+            "time": "2016-08-10 08:55:11"
         },
         {
             "name": "monolog/monolog",
@@ -3733,7 +3780,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "dyaa/pushover": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
