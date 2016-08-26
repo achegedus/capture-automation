@@ -11,6 +11,8 @@
 |
 */
 use Illuminate\Support\Facades\Input as Input;
+use App\Models\Client;
+use App\Models\ClientFile;
 Route::group(['middleware' => ['web']], function () {
 
     # Authentication Routes
@@ -33,7 +35,10 @@ Route::group(['middleware' => ['web']], function () {
         if (Request::ajax()) {
             $file = Input::file('file');
             $optselected = Input::get('options');
-            $destinationPath = public_path() . '/uploads/';
+            $client = Client::where('username', '=', Auth::user()->bill_capture_client)->first();
+            $clientname = $client->username;
+            $clientID= $client->clientID;
+            $destinationPath = public_path() . '/uploads/' . $clientname . '/';
             $filename = $file->getClientOriginalName();
             $fileexists = file_exists($filename);
 
@@ -41,6 +46,11 @@ Route::group(['middleware' => ['web']], function () {
             if (!$fileexists) {
 
                 $upload_success = Input::file('file')->move($destinationPath, $filename);
+                $client = Client::find($clientID);
+                DB::table('clientFiles')->insert(
+                  ['clientID' => $clientID, 'fileName' => $filename]
+                );
+                
 
                 return Response::json('sucesss', 200);
             } else {

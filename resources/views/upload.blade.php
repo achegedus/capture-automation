@@ -107,7 +107,7 @@
         thumbnailWidth: 80,
         thumbnailHeight: 80,
         parallelUploads: 20,
-        maxFilesize: 2048, // MB
+        maxFilesize: 20480, // 20 MB
         acceptedFiles: ".zip",
         previewTemplate: previewTemplate,
         autoQueue: false, // Make sure the files aren't queued until manually added
