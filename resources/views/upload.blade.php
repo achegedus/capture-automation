@@ -36,7 +36,7 @@
     <div class="col-lg-10">
         <div class="radio">
             <label>
-                <input type="radio" name="options" id="optionsRadios1" value="live">
+                <input type="radio" name="options" id="optionsRadios1" value="live"checked>
                 Live Bills have an end date within 60 days of the upload date.
             </label>
         </div>
@@ -144,7 +144,7 @@
     myDropzone.on("queuecomplete", function (progress) {
         document.querySelector("#total-progress").style.opacity = "0";
         // reloads page after everything is done sending.
-        //location.reload();
+        location.reload();
     });
 
     // Setup the buttons for all transfers
