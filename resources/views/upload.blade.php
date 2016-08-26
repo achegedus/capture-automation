@@ -36,20 +36,20 @@
     <div class="col-lg-10">
         <div class="radio">
             <label>
-                <input type="radio" name="options" id="optionsRadios1" value="option1" checked>
-                Option one is this and that&mdash;be sure to include why it's great
+                <input type="radio" name="options" id="optionsRadios1" value="live">
+                Live Bills have an end date within 60 days of the upload date.
             </label>
         </div>
         <div class="radio">
             <label>
-                <input type="radio" name="options" id="optionsRadios2" value="option2">
-                Option two can be something else and selecting it will deselect option one
+                <input type="radio" name="options" id="optionsRadios2" value="hist">
+                Historical Bills have an end date greater than 60 days from the upload date.
             </label>
         </div>
-        <div class="radio disabled">
+        <div class="radio">
             <label>
-                <input type="radio" name="options" id="optionsRadios3" value="option3">
-                Option three is here
+                <input type="radio" name="options" id="optionsRadios3" value="setup">
+                Setup Bills are used for enrollment in Bill CAPture and are processed at the end of enrollment.
             </label>
         </div>
     </div>
@@ -134,7 +134,7 @@
         document.querySelector("#total-progress").style.opacity = "1";
         formData.append("_token", $('[name="_token"]').val());
         //sends value of options radio buttons to ajax request
-        formData.append("options", $("input[name=options]").val());
+        formData.append("options", $('input[name="options"]:checked').val());
 
         // And disable the start button
         file.previewElement.querySelector(".start").setAttribute("disabled", "enabled");
@@ -144,7 +144,7 @@
     myDropzone.on("queuecomplete", function (progress) {
         document.querySelector("#total-progress").style.opacity = "0";
         // reloads page after everything is done sending.
-        location.reload();
+        //location.reload();
     });
 
     // Setup the buttons for all transfers

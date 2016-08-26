@@ -40,19 +40,30 @@ Route::group(['middleware' => ['web']], function () {
             $clientID= $client->clientID;
             $destinationPath = public_path() . '/uploads/' . $clientname . '/';
             $filename = $file->getClientOriginalName();
+            if ($optselected == 'setup'){
+              $filename= 'setup_' . $filename;
+
+
+            }
+            else if ($optselected == 'hist'){
+              $filename = 'hist_' . $filename;
+
+            }
             $fileexists = file_exists($filename);
+
 
 
             if (!$fileexists) {
 
                 $upload_success = Input::file('file')->move($destinationPath, $filename);
+
                 $client = Client::find($clientID);
                 DB::table('clientFiles')->insert(
                   ['clientID' => $clientID, 'fileName' => $filename]
                 );
-                
 
-                return Response::json('sucesss', 200);
+
+                return Response::json('success', 200);
             } else {
                 echo 'else';
 
