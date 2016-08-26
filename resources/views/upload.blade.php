@@ -132,7 +132,7 @@
     myDropzone.on("sending", function (file, xhr, formData) {
         // Show the total progress bar when upload starts
         document.querySelector("#total-progress").style.opacity = "1";
-        formData.append("_token", $('[name=_token').val());
+        formData.append("_token", $('[name="_token"]').val());
         //sends value of options radio buttons to ajax request
         formData.append("options", $("input[name=options]").val());
 
