@@ -1,6 +1,5 @@
 <?php namespace App\Models;
 
-
 use Adldap\Laravel\Facades\Adldap;
 use Auth0\Login\Auth0User;
 
@@ -23,5 +22,4 @@ class ECIAuth0User extends Auth0User
         
         return false;
     }
-    
 }

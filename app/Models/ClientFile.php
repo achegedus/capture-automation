@@ -27,5 +27,4 @@ class ClientFile extends Model
     {
         return $this->hasOne('App\Models\PartnerFile', 'clientFileID', 'clientFileID');
     }
-    
 }

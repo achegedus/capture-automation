@@ -46,29 +46,24 @@ class KickoutReminder extends Command
     
         // loop through clients
         foreach ($clients as $client) {
-            
             // get partner files that are not processed and open and kicked out
-            $partnerFiles = $client->partnerFiles()->where('kickedOut','=','1')->where('closed','=',0)->where('readyToProcess','=',0)->get();
+            $partnerFiles = $client->partnerFiles()->where('kickedOut', '=', '1')->where('closed', '=', 0)->where('readyToProcess', '=', 0)->get();
             
             // if no partner files exist, move to next client
-            if(count($partnerFiles) == 0) {
+            if (count($partnerFiles) == 0) {
                 // no open partner files
                 continue;
-            }
-            else {
-                
+            } else {
                 // loop through partner files
                 foreach ($partnerFiles as $partnerFile) {
-                    
                     // look for open kickouts
-                    $kickouts = $partnerFile->kickoutFiles()->where('processed',0)->get();
+                    $kickouts = $partnerFile->kickoutFiles()->where('processed', 0)->get();
                     
                     // if no kickouts, move on to next partner file
                     if (count($kickouts) == 0) {
                         // no kickouts
                         continue;
-                    }
-                    else {
+                    } else {
                         // kickouts found.
                         
                         // get date of last email + grace period
@@ -76,7 +71,7 @@ class KickoutReminder extends Command
                         $today = new Carbon();
     
                         //if the grace period is equal to or greater than the current date then send a kickout reminder
-                        if($today->gt($graceEnd)) {
+                        if ($today->gt($graceEnd)) {
                             // this should be reminded.
                             $reminderData = array();
                             $reminderData['client'] = $client;
@@ -96,8 +91,7 @@ class KickoutReminder extends Command
                             
                             $this->info('Reminder sent for partner file ' . $partnerFile->partnerFileID);
                             Log::info('Reminder sent for partner file ' . $partnerFile->partnerFileID);
-                        }
-                        else {
+                        } else {
                             // criteria not met, reminder not sent
                             $this->info('Reminder not sent for partner file ' . $partnerFile->partnerFileID);
                             Log::info('Reminder not sent for partner file ' . $partnerFile->partnerFileID);
@@ -105,7 +99,6 @@ class KickoutReminder extends Command
                     }
                 }
             }
-            
         }
     }
 }

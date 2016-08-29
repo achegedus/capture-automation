@@ -52,8 +52,9 @@ class Client extends Model
      */
     public function ECMAPercentage()
     {
-        if (!$this->ECMA_start || !$this->ECMA_renew)
+        if (!$this->ECMA_start || !$this->ECMA_renew) {
             return 0;
+        }
         
         $ecmaDays = $this->ECMA_start->diffInDays($this->ECMA_renew);
         $ecmaToDate = $this->ECMA_start->diffInDays(new Carbon());
@@ -187,8 +188,9 @@ ORDER BY processDate DESC;";
             ORDER BY clientName, billingTypeName;";
         $result = DB::select($query);
         
-        if (count($result) == 0)
+        if (count($result) == 0) {
             return false;
+        }
         
         return $result[0];
     }
@@ -259,6 +261,4 @@ ORDER BY processDate DESC;";
             return $bccEmails;
         }
     }
-    
-    
 }

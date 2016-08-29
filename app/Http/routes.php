@@ -13,6 +13,7 @@
 use Illuminate\Support\Facades\Input as Input;
 use App\Models\Client;
 use App\Models\ClientFile;
+
 Route::group(['middleware' => ['web']], function () {
 
     # Authentication Routes
@@ -31,7 +32,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/upload', 'ClientController@index');
     //Route::get('/list_upload', 'UploadController@list_upload');
     Route::get('/check_duplicates/{file}', 'UploadController@check_duplicates');
-    Route::post('/process_upload', function() {
+    Route::post('/process_upload', function () {
         if (Request::ajax()) {
             $file = Input::file('file');
             $optselected = Input::get('options');
@@ -40,26 +41,21 @@ Route::group(['middleware' => ['web']], function () {
             $clientID= $client->clientID;
             $destinationPath = public_path() . '/uploads/' . $clientname . '/';
             $filename = $file->getClientOriginalName();
-            if ($optselected == 'setup'){
-              $filename= 'setup_' . $filename;
-
-
-            }
-            else if ($optselected == 'hist'){
-              $filename = 'hist_' . $filename;
-
+            if ($optselected == 'setup') {
+                $filename= 'setup_' . $filename;
+            } else if ($optselected == 'hist') {
+                $filename = 'hist_' . $filename;
             }
             $fileexists = file_exists($filename);
 
 
 
             if (!$fileexists) {
-
                 $upload_success = Input::file('file')->move($destinationPath, $filename);
 
                 $client = Client::find($clientID);
                 DB::table('clientFiles')->insert(
-                  ['clientID' => $clientID, 'fileName' => $filename]
+                    ['clientID' => $clientID, 'fileName' => $filename]
                 );
 
 
@@ -81,6 +77,4 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('/admin/settings/{id}', 'AdminController@settings');
         Route::post('/admin/submit/{id}', 'AdminController@formSubmit');
     });
-
-
 });

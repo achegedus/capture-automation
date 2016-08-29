@@ -47,7 +47,6 @@ class TransactionsCheck extends Command
         
         // Loop through clients
         foreach ($clients as $client) {
-            
             // get transaction data
             if (!$trans = $client->transaction_data()) {
                 continue;
@@ -70,11 +69,11 @@ class TransactionsCheck extends Command
             // On Pace
             // if the proposedVolume column is NULL it will be skipped
             if ($trans->proposedVolume_livebills >= 0) {
-                
-                if ($trans->proposedVolume_livebills == 0)
+                if ($trans->proposedVolume_livebills == 0) {
                     $liveTransPercentUsed = 0;
-                else
+                } else {
                     $liveTransPercentUsed = $trans->actual_livebills / $trans->proposedVolume_livebills * 100;
+                }
                 
                 // Exceeded Proposed Volume
                 if ($trans->actual_livebills > $trans->proposedVolume_livebills) {
@@ -91,7 +90,6 @@ class TransactionsCheck extends Command
                         $m->from('bills@energycap.com', 'EnergyCAP Bill CAPture');
                         $m->to('bills@energycap.com')->subject("Usage Alert");
                     });
-                    
                 } else if (($liveTransPercentUsed > 0 ) && (($liveTransPercentUsed - $daysPercentUsed) > $trans->usage_alert_percent)) {
                     $liveOutput = array(); // set the empty array for the view
                     $liveOutput['clientName'] = $trans->clientName;
@@ -114,10 +112,8 @@ class TransactionsCheck extends Command
     
             // if the proposedVolume column is NULL it will be skipped
             if ($trans->proposedVolume_histbills >= 0) {
-        
                 // check to see if they used more than 10 transactions over their proposed amount
                 if ($trans->actual_histbills > ($trans->proposedVolume_histbills + 10)) {
-            
                     $histOutput = array(); // set the empty array for the view
                     $histOutput['clientName'] = $trans->clientName;
                     $histOutput['totalContracted'] = $trans->proposedVolume_histbills;
@@ -138,7 +134,6 @@ class TransactionsCheck extends Command
     
             // if the proposedVolume column is NULL it will be skipped
             if ($trans->proposedVolume_accts >= 0) {
-        
                 if ($trans->actual_newAccounts > ($trans->proposedVolume_accts + 10)) {
                     $acctOutput = array(); // set the empty array for the view
                     $acctOutput['clientName'] = $trans->clientName;

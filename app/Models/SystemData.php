@@ -14,6 +14,4 @@ class SystemData extends Model
     
     protected $dateFormat = 'Y-m-d H:i:s';
     protected $dates = ['timestamp', 'notifyTimestamp'];
-    
-    
 }
