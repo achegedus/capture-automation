@@ -73,7 +73,7 @@ class KickoutReminder extends Command
                         //if the grace period is equal to or greater than the current date then send a kickout reminder
                         if ($today->gt($graceEnd)) {
                             // this should be reminded.
-                            $reminderData = array();
+                            $reminderData = [];
                             $reminderData['client'] = $client;
                             $reminderData['partnerFile'] = $partnerFile;
                             $reminderData['kickouts'] = $kickouts;

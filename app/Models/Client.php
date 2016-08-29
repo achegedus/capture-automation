@@ -222,7 +222,7 @@ ORDER BY processDate DESC;";
     {
         //take the list of emails from the ECBC database and find the @energycap.com address's to use in the BCC for any email that is sent
         $splitEmails = explode(",", $this->clientEmail);
-        $clientEmails = array();
+        $clientEmails = [];
     
         foreach ($splitEmails as $email) {
             if (!preg_match('/@energycap\.com/i', $email)) {
@@ -247,7 +247,7 @@ ORDER BY processDate DESC;";
     {
         //take the list of emails from the ECBC database and find the @energycap.com address's to use in the BCC for any email that is sent
         $splitEmails = explode(",", $this->clientEmail);
-        $bccEmails = array();
+        $bccEmails = [];
     
         foreach ($splitEmails as $email) {
             if (preg_match('/@energycap\.com/i', $email)) {

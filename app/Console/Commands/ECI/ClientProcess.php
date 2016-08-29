@@ -69,7 +69,7 @@ class ClientProcess extends Command
         if ($intervalDiff >= $systemData->notifyInterval) {
             $this->info("Processor has been running for " . (int) ($totalRun / 60) . " hours and " . $totalRun % 60 . " minutes.");
     
-            $emailContent = array();
+            $emailContent = [];
             $emailContent['process'] = 'Client';
             $emailContent['process_time'] = $totalRun;
             $emailContent['timestamp'] = $systemData->timestamp->toDayDateTimeString();

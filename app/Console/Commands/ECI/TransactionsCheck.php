@@ -77,7 +77,7 @@ class TransactionsCheck extends Command
                 
                 // Exceeded Proposed Volume
                 if ($trans->actual_livebills > $trans->proposedVolume_livebills) {
-                    $liveOutput = array(); // set the empty array for the view
+                    $liveOutput = []; // set the empty array for the view
                     $liveOutput['clientName'] = $trans->clientName;
                     $liveOutput['totalContracted'] = $trans->proposedVolume_livebills;
                     $liveOutput['actualUsage'] = $trans->actual_livebills;
@@ -91,7 +91,7 @@ class TransactionsCheck extends Command
                         $m->to('bills@energycap.com')->subject("Usage Alert");
                     });
                 } else if (($liveTransPercentUsed > 0 ) && (($liveTransPercentUsed - $daysPercentUsed) > $trans->usage_alert_percent)) {
-                    $liveOutput = array(); // set the empty array for the view
+                    $liveOutput = []; // set the empty array for the view
                     $liveOutput['clientName'] = $trans->clientName;
                     $liveOutput['transUsedPercentage'] = round($liveTransPercentUsed);
                     $liveOutput['daysUsedPercentage'] = round($daysPercentUsed);
@@ -114,7 +114,7 @@ class TransactionsCheck extends Command
             if ($trans->proposedVolume_histbills >= 0) {
                 // check to see if they used more than 10 transactions over their proposed amount
                 if ($trans->actual_histbills > ($trans->proposedVolume_histbills + 10)) {
-                    $histOutput = array(); // set the empty array for the view
+                    $histOutput = []; // set the empty array for the view
                     $histOutput['clientName'] = $trans->clientName;
                     $histOutput['totalContracted'] = $trans->proposedVolume_histbills;
                     $histOutput['actualUsage'] = $trans->actual_histbills;
@@ -135,7 +135,7 @@ class TransactionsCheck extends Command
             // if the proposedVolume column is NULL it will be skipped
             if ($trans->proposedVolume_accts >= 0) {
                 if ($trans->actual_newAccounts > ($trans->proposedVolume_accts + 10)) {
-                    $acctOutput = array(); // set the empty array for the view
+                    $acctOutput = []; // set the empty array for the view
                     $acctOutput['clientName'] = $trans->clientName;
                     $acctOutput['totalContracted'] = $trans->proposedVolume_accts;
                     $acctOutput['actualUsage'] = $trans->actual_newAccounts;
