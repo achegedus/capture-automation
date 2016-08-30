@@ -19,7 +19,6 @@ class ClientController extends Controller
     public function index()
     {
         if (Auth::check()) {
-            
             if (Auth::user()->bill_capture_client != '') {
                 $client = Client::where('username', '=', Auth::user()->bill_capture_client)->first();
                 

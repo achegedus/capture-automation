@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input as Input;
 use App\Models\ClientFile;
 
-
 class UploadController extends Controller
 {
     
@@ -35,6 +34,4 @@ class UploadController extends Controller
         
         return $result;
     }
-    
-    
 }

@@ -52,8 +52,9 @@ class Client extends Model
      */
     public function ECMAPercentage()
     {
-        if (!$this->ECMA_start || !$this->ECMA_renew)
+        if (!$this->ECMA_start || !$this->ECMA_renew) {
             return 0;
+        }
         
         $ecmaDays = $this->ECMA_start->diffInDays($this->ECMA_renew);
         $ecmaToDate = $this->ECMA_start->diffInDays(new Carbon());
@@ -187,8 +188,9 @@ ORDER BY processDate DESC;";
             ORDER BY clientName, billingTypeName;";
         $result = DB::select($query);
         
-        if (count($result) == 0)
+        if (count($result) == 0) {
             return false;
+        }
         
         return $result[0];
     }
@@ -220,7 +222,7 @@ ORDER BY processDate DESC;";
     {
         //take the list of emails from the ECBC database and find the @energycap.com address's to use in the BCC for any email that is sent
         $splitEmails = explode(",", $this->clientEmail);
-        $clientEmails = array();
+        $clientEmails = [];
     
         foreach ($splitEmails as $email) {
             if (!preg_match('/@energycap\.com/i', $email)) {
@@ -245,7 +247,7 @@ ORDER BY processDate DESC;";
     {
         //take the list of emails from the ECBC database and find the @energycap.com address's to use in the BCC for any email that is sent
         $splitEmails = explode(",", $this->clientEmail);
-        $bccEmails = array();
+        $bccEmails = [];
     
         foreach ($splitEmails as $email) {
             if (preg_match('/@energycap\.com/i', $email)) {
@@ -259,6 +261,4 @@ ORDER BY processDate DESC;";
             return $bccEmails;
         }
     }
-    
-    
 }
