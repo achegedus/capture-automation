@@ -12,8 +12,8 @@
         "laravel/framework": "5.3.*",
         "adldap2/adldap2-laravel": "2.0.*",
         "auth0/login": "~3.1",
-        "laravelcollective/bus": "5.2.*",
-        "laravelcollective/html": "5.2.*",
+        "laravelcollective/bus": "5.3.*",
+        "laravelcollective/html": "5.3.*",
         "dyaa/pushover": "dev-master"
     },
     "require-dev": {
